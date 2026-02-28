@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
-import { analyzeIncident } from "@/lib/gemini";
+import { analyzeWithVultr } from "@/lib/vultr";
+import type { AnalysisResult } from "@/lib/types";
 
 export async function POST(req: Request) {
   try {
@@ -26,7 +27,27 @@ export async function POST(req: Request) {
       audio: { level_db: 45, anomaly: false },
     };
 
-    const analysis = await analyzeIncident("heart_rate", sensorData);
+    let analysis: AnalysisResult;
+
+    try {
+      analysis = await analyzeWithVultr("heart_rate", sensorData);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("[monitor/heartrate] Vultr failed:", msg);
+
+      analysis = {
+        severity: bpm >= 160 ? "high" : "medium",
+        summary: `Sustained elevated heart rate of ${bpm} bpm detected (baseline: ${baseline} bpm) for ${elevated_duration_sec ?? 0} seconds. LLM analysis unavailable.`,
+        categories: ["medical", "physical_safety"],
+        suggested_actions: [
+          "Check on your child immediately",
+          "Ask if they are feeling okay",
+          "Monitor for additional symptoms",
+          "Contact a medical professional if heart rate remains elevated",
+        ],
+        transcript: "[No audio — triggered by heart rate sensor]",
+      };
+    }
 
     const supabaseAdmin = getSupabaseAdmin();
     const incidentId = crypto.randomUUID();
