@@ -35,11 +35,11 @@ export function AnalyzeButton({ incidentId }: { incidentId: string }) {
       <button
         onClick={handleAnalyze}
         disabled={loading}
-        className="rounded-lg bg-emerald-500 px-5 py-2 text-xs font-medium text-zinc-950 transition-all hover:bg-emerald-400 active:scale-[0.97] disabled:opacity-50"
+        className="rounded-xl bg-[#d1fae5] px-5 py-2.5 text-xs font-bold text-[#065f46] transition-all hover:bg-[#a7f3d0] active:scale-[0.97] disabled:opacity-50 card-hover shadow-sm"
       >
         {loading ? (
           <span className="flex items-center gap-2">
-            <span className="h-3 w-3 animate-spin rounded-full border-2 border-zinc-950 border-t-transparent" />
+            <span className="h-3 w-3 animate-spin rounded-full border-2 border-[#065f46] border-t-transparent" />
             Analyzing...
           </span>
         ) : (
@@ -47,7 +47,7 @@ export function AnalyzeButton({ incidentId }: { incidentId: string }) {
         )}
       </button>
       {error && (
-        <p className="mt-2 text-xs text-rose-400">{error}</p>
+        <p className="mt-2 text-xs font-medium text-rose-600">{error}</p>
       )}
     </div>
   );

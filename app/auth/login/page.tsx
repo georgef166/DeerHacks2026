@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { ShieldCheck } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -53,20 +54,18 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-6">
-      <div className="w-full max-w-sm">
+    <div className="flex min-h-screen items-center justify-center px-6 bg-transparent backdrop-blur-xl">
+      <div className="w-full max-w-sm card-soft p-8 bg-white/40">
         <div className="mb-8 text-center">
           <Link href="/" className="inline-block">
-            <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 ring-1 ring-emerald-500/20">
-              <svg className="h-5 w-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-              </svg>
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#d1fae5] ring-1 ring-[#a7f3d0] shadow-sm text-[#065f46]">
+              <ShieldCheck className="w-6 h-6" />
             </div>
           </Link>
-          <h1 className="text-xl font-semibold text-zinc-100">
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-800">
             Welcome back
           </h1>
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1.5 text-sm font-medium text-slate-500">
             Sign in to SafeDay Companion
           </p>
         </div>
@@ -74,7 +73,7 @@ export default function LoginPage() {
         <button
           onClick={handleGoogleLogin}
           disabled={googleLoading || loading}
-          className="flex w-full items-center justify-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900 py-2.5 text-sm font-medium text-zinc-200 transition-all hover:border-zinc-700 hover:bg-zinc-800 active:scale-[0.98] disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white py-3 text-sm font-semibold text-slate-700 transition-all hover:bg-slate-50 active:scale-[0.98] disabled:opacity-50 card-hover shadow-sm"
         >
           <svg className="h-4 w-4" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
@@ -86,14 +85,14 @@ export default function LoginPage() {
         </button>
 
         <div className="my-6 flex items-center gap-3">
-          <span className="h-px flex-1 bg-zinc-800" />
-          <span className="text-[11px] font-medium uppercase tracking-wider text-zinc-600">or</span>
-          <span className="h-px flex-1 bg-zinc-800" />
+          <span className="h-px flex-1 bg-slate-200" />
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">or</span>
+          <span className="h-px flex-1 bg-slate-200" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-zinc-400">
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">
               Email
             </label>
             <input
@@ -101,12 +100,12 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="block w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3.5 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600"
+              className="block w-full rounded-xl border border-slate-200 bg-white/60 px-4 py-3 text-sm font-medium text-slate-800 placeholder-slate-400 outline-none transition-colors focus:border-slate-300 focus:bg-white focus:ring-2 focus:ring-slate-100 shadow-sm"
               placeholder="parent@example.com"
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-zinc-400">
+            <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">
               Password
             </label>
             <input
@@ -114,13 +113,13 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="block w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3.5 py-2.5 text-sm text-zinc-100 placeholder-zinc-600 outline-none transition-colors focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600"
+              className="block w-full rounded-xl border border-slate-200 bg-white/60 px-4 py-3 text-sm font-medium text-slate-800 placeholder-slate-400 outline-none transition-colors focus:border-slate-300 focus:bg-white focus:ring-2 focus:ring-slate-100 shadow-sm"
               placeholder="••••••••"
             />
           </div>
 
           {error && (
-            <div className="rounded-lg border border-rose-500/20 bg-rose-500/10 px-3.5 py-2.5 text-sm text-rose-400">
+            <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700 shadow-sm">
               {error}
             </div>
           )}
@@ -128,17 +127,17 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading || googleLoading}
-            className="w-full rounded-lg bg-emerald-500 py-2.5 text-sm font-medium text-zinc-950 transition-all hover:bg-emerald-400 active:scale-[0.98] disabled:opacity-50"
+            className="mt-2 w-full rounded-xl bg-[#d1fae5] py-3 text-sm font-bold tracking-wide text-[#065f46] transition-all hover:bg-[#a7f3d0] active:scale-[0.98] disabled:opacity-50 card-hover shadow-sm"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-500">
+        <p className="mt-8 text-center text-sm font-medium text-slate-500">
           No account?{" "}
           <Link
             href="/auth/signup"
-            className="text-zinc-300 transition-colors hover:text-zinc-100"
+            className="font-semibold text-sky-600 transition-colors hover:text-sky-700 underline underline-offset-2"
           >
             Create one
           </Link>
