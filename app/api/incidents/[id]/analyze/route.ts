@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { transcribeAudio } from "@/lib/elevenlabs";
+import { analyzeWithVultr } from "@/lib/vultr";
 import { analyzeIncident } from "@/lib/gemini";
+import type { AnalysisResult } from "@/lib/types";
 
 export async function POST(
   _req: Request,
@@ -66,13 +68,35 @@ export async function POST(
       }
     }
 
-    console.log("[analyze] Running Gemini safety analysis...");
+    let analysis: AnalysisResult;
+    let engine = "gemini";
 
-    const analysis = await analyzeIncident(
-      incident.event_type,
-      incident.sensor_data,
-      transcript
-    );
+    try {
+      console.log("[analyze] Running Gemini deep analysis...");
+      analysis = await analyzeIncident(
+        incident.event_type,
+        incident.sensor_data,
+        transcript
+      );
+    } catch (err) {
+      console.error(
+        "[analyze] Gemini failed, falling back to Vultr:",
+        err instanceof Error ? err.message : err
+      );
+
+      if (process.env.VULTR_OLLAMA_URL) {
+        engine = "vultr";
+        analysis = await analyzeWithVultr(
+          incident.event_type,
+          incident.sensor_data,
+          transcript
+        );
+      } else {
+        throw err;
+      }
+    }
+
+    console.log(`[analyze] Done via ${engine}: severity=${analysis.severity}`);
 
     const { error: updateErr } = await supabaseAdmin
       .from("incidents")
@@ -90,7 +114,7 @@ export async function POST(
       return NextResponse.json({ error: updateErr.message }, { status: 500 });
     }
 
-    return NextResponse.json({ incident_id: id, analysis, transcript });
+    return NextResponse.json({ incident_id: id, analysis, transcript, engine });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Analysis failed";
     console.error("[analyze] Error:", message);

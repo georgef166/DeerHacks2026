@@ -1,6 +1,6 @@
 import { requireAuth } from "@/lib/auth";
 import Link from "next/link";
-import { SimulationTabs } from "./SimulationTabs";
+import { LiveMonitor } from "./LiveMonitor";
 
 export default async function SimulatePage() {
   await requireAuth();
@@ -31,7 +31,7 @@ export default async function SimulatePage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-6 py-8">
-        <SimulationTabs />
+        <LiveMonitor />
       </main>
     </div>
   );
