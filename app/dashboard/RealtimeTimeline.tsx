@@ -1,42 +1,13 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { Incident, SensorData } from "@/lib/types";
+import { Rocky, type RockyMood } from "@/components/mascot/Rocky";
 
 function formatBpm(sensor: SensorData): string {
   return sensor?.heart_rate?.bpm != null ? `${sensor.heart_rate.bpm} BPM` : "";
-}
-
-function severityBadge(severity: string) {
-  switch (severity) {
-    case "critical":
-      return "bg-rose-500/15 text-rose-400 ring-rose-500/20";
-    case "high":
-      return "bg-rose-500/10 text-rose-400 ring-rose-500/15";
-    case "medium":
-      return "bg-amber-500/10 text-amber-400 ring-amber-500/15";
-    case "low":
-      return "bg-emerald-500/10 text-emerald-400 ring-emerald-500/15";
-    default:
-      return "bg-zinc-800 text-zinc-400 ring-zinc-700";
-  }
-}
-
-function severityDot(severity: string) {
-  switch (severity) {
-    case "critical":
-      return "bg-rose-500 shadow-rose-500/40 shadow-sm";
-    case "high":
-      return "bg-rose-400";
-    case "medium":
-      return "bg-amber-400";
-    case "low":
-      return "bg-emerald-400";
-    default:
-      return "bg-zinc-600";
-  }
 }
 
 const EVENT_LABELS: Record<string, string> = {
@@ -45,41 +16,6 @@ const EVENT_LABELS: Record<string, string> = {
   audio_anomaly: "Audio Distress",
   combined: "Multi-Signal Emergency",
 };
-
-function EventIcon({ type }: { type: string }) {
-  switch (type) {
-    case "heart_rate":
-      return (
-        <svg className="h-3.5 w-3.5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-        </svg>
-      );
-    case "fall":
-      return (
-        <svg className="h-3.5 w-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-        </svg>
-      );
-    case "audio_anomaly":
-      return (
-        <svg className="h-3.5 w-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
-        </svg>
-      );
-    case "combined":
-      return (
-        <svg className="h-3.5 w-3.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
-        </svg>
-      );
-    default:
-      return (
-        <svg className="h-3.5 w-3.5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-        </svg>
-      );
-  }
-}
 
 export function RealtimeTimeline({
   initialIncidents,
@@ -128,143 +64,205 @@ export function RealtimeTimeline({
   const todaysIncidents = incidents.filter(
     (i) => new Date(i.created_at).toDateString() === today
   );
-  const highCount = todaysIncidents.filter(
-    (i) => i.severity === "high" || i.severity === "critical"
-  ).length;
-  const pendingCount = todaysIncidents.filter(
-    (i) => i.status === "pending"
-  ).length;
+
+  const hasCritical = todaysIncidents.some(i => i.severity === "critical" || i.severity === "high");
+  const hasMedium = todaysIncidents.some(i => i.severity === "medium");
+
+  // Determine overall day quality
+  let dayQuality = "good";
+  if (hasCritical) dayQuality = "concerning";
+  else if (hasMedium) dayQuality = "normal";
+
+  const getRockyMood = (quality: string): RockyMood => {
+    switch (quality) {
+      case "concerning": return "concerned";
+      case "normal": return "sleepy";
+      default: return "happy";
+    }
+  };
+
+  const NotificationCard = ({ incident, idx }: { incident: Incident, idx: number }) => {
+    const isRed = incident.severity === "critical" || incident.severity === "high";
+    const isYellow = incident.severity === "medium";
+    const colorClass = isRed
+      ? "bg-rose-50 border-rose-200"
+      : isYellow
+        ? "bg-amber-50 border-amber-200"
+        : "bg-emerald-50 border-emerald-200";
+
+    const mood: RockyMood = isRed ? "concerned" : isYellow ? "sleepy" : "happy";
+    const titleColor = isRed ? "text-rose-900" : isYellow ? "text-amber-900" : "text-emerald-900";
+    const time = new Date(incident.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+    return (
+      <Link
+        href={`/events/${incident.id}`}
+        className={`group flex items-start gap-4 rounded-3xl border ${colorClass} bg-white/40 backdrop-blur-md p-6 transition-all duration-300 ease-in-out card-hover shadow-sm`}
+        style={{
+          animationDelay: `${idx * 40}ms`,
+          animation: "fadeSlideIn 0.4s ease-out both",
+        }}
+      >
+        <Rocky mood={mood} className="scale-90 shrink-0 -mt-2" />
+        <div className="flex-1">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className={`text-sm font-bold tracking-tight ${titleColor} px-3 py-1 bg-white/50 rounded-full border border-current opacity-70`}>
+              {EVENT_LABELS[incident.event_type] ?? incident.event_type}
+            </span>
+            <span className="text-[11px] font-bold text-slate-400 bg-white/50 px-3 py-1.5 rounded-xl border border-slate-100">
+              {time}
+            </span>
+          </div>
+          <p className="text-sm font-semibold text-slate-700 leading-relaxed mb-3">
+            {incident.summary ?? "Rocky is analyzing what happened..."}
+          </p>
+          {formatBpm(incident.sensor_data) && (
+            <div className="inline-flex items-center gap-2 bg-white/60 px-3 py-1.5 rounded-xl border border-white/40 shadow-sm">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Pulse</span>
+              <span className="text-xs font-bold text-slate-700">{formatBpm(incident.sensor_data)}</span>
+            </div>
+          )}
+        </div>
+      </Link>
+    );
+  };
 
   return (
     <>
-      {/* Stat cards */}
-      <section className="mb-10 grid gap-4 sm:grid-cols-3">
-        {[
-          {
-            label: "Events Today",
-            value: todaysIncidents.length,
-            color: "text-zinc-100",
-          },
-          {
-            label: "High Priority",
-            value: highCount,
-            color: highCount > 0 ? "text-rose-400" : "text-zinc-100",
-            pulse: highCount > 0,
-          },
-          {
-            label: "Pending Analysis",
-            value: pendingCount,
-            color: pendingCount > 0 ? "text-amber-400" : "text-zinc-100",
-          },
-        ].map((stat) => (
-          <div
-            key={stat.label}
-            className="rounded-xl border border-zinc-800/60 bg-zinc-900/50 p-5"
-          >
-            <div className="flex items-center gap-2">
-              <p className="text-xs font-medium tracking-wide text-zinc-500">
-                {stat.label}
-              </p>
-              {stat.pulse && (
-                <span className="h-1.5 w-1.5 rounded-full bg-rose-500" style={{ animation: "subtlePulse 2s infinite" }} />
-              )}
+      <div className="grid lg:grid-cols-2 gap-8 mb-12">
+        {/* Daily Summary Card */}
+        <div className="card-soft p-8 bg-white/40 backdrop-blur-md border border-white/50 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Daily Summary</h2>
+                <p className="text-sm font-medium text-slate-500 mt-1">Today is a calm and positive day.</p>
+              </div>
+              <Rocky mood={getRockyMood(dayQuality)} className="scale-110" />
             </div>
-            <p className={`mt-2 text-3xl font-semibold tabular-nums ${stat.color}`}>
-              {stat.value}
-            </p>
-          </div>
-        ))}
-      </section>
 
-      <div className="mb-5 flex items-center justify-between">
-        <h2 className="text-sm font-medium text-zinc-300">
-          Today&apos;s Timeline
-        </h2>
-        <div className="flex items-center gap-1.5 text-xs text-emerald-500">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" style={{ animation: "subtlePulse 2s infinite" }} />
-          Live
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { label: "EMOTION", val: dayQuality === "good" ? "Calm" : dayQuality === "normal" ? "Normal" : "Tense", icon: "🧠" },
+                { label: "ACTIVITY", val: "Normal", icon: "🏃" },
+                { label: "ALERTS", val: todaysIncidents.length.toString(), icon: "🔔" },
+                { label: "SLEEP", val: "8h 12m", icon: "💤" },
+              ].map((item) => (
+                <div key={item.label} className="bg-white/50 rounded-2xl p-4 border border-white/20 flex flex-col items-center text-center">
+                  <span className="text-lg mb-1">{item.icon}</span>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.label}</span>
+                  <span className="text-sm font-bold text-slate-700">{item.val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Redesigned Activity Calendar Section */}
+        <Link href="/dashboard/calendar" className="block focus:outline-none focus:ring-2 focus:ring-slate-300 rounded-3xl h-full">
+          <section id="calendar" className="card-soft p-6 bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl flex flex-col relative overflow-hidden transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl cursor-pointer h-full min-h-[320px]">
+            {/* Tape Decorations */}
+            <div className="absolute -top-1 left-12 w-8 h-12 bg-amber-100/60 backdrop-blur-sm border-x border-amber-200/30 rotate-2 z-20 shadow-sm"></div>
+            <div className="absolute -top-1 right-12 w-8 h-12 bg-amber-100/60 backdrop-blur-sm border-x border-amber-200/30 -rotate-2 z-20 shadow-sm"></div>
+
+            <div className="flex flex-col items-center mb-6 relative z-10 border-b border-slate-200/50 pb-3 border-dashed">
+              <h2 className="text-lg font-bold tracking-tight text-slate-800">Record</h2>
+              <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 bg-white/40 px-3 py-1.5 rounded-xl border border-white/40 mt-1">
+                <span>&larr;</span>
+                <span className="text-slate-600">Feb 2026</span>
+                <span>&rarr;</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-7 gap-y-3 gap-x-1 relative z-10">
+              {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+                <span key={day} className="text-[9px] font-bold text-slate-400 uppercase tracking-widest text-center mb-1">{day}</span>
+              ))}
+
+              {/* Padding for month start (assuming month starts on certain day for demo) */}
+              {[...Array(4)].map((_, i) => <div key={`pad-${i}`} />)}
+
+              {[
+                { date: 1, mood: "happy", color: "bg-emerald-400" },
+                { date: 2, mood: "sleepy", color: "bg-amber-400" },
+                { date: 3, mood: "happy", color: "bg-emerald-400" },
+                { date: 4, mood: "concerned", color: "bg-rose-400" },
+                { date: 5, mood: "happy", color: "bg-emerald-400" },
+                { date: 6, mood: "sleepy", color: "bg-amber-400" },
+                { date: 7, mood: "happy", color: "bg-emerald-400" },
+                { date: 8, mood: "happy", color: "bg-emerald-400" },
+                { date: 9, mood: "sleepy", color: "bg-amber-400" },
+                { date: 10, mood: "happy", color: "bg-emerald-400" },
+                { date: 11, mood: "concerned", color: "bg-rose-400" },
+                { date: 12, mood: "happy", color: "bg-emerald-400" },
+                { date: 13, mood: "happy", color: "bg-emerald-400" },
+                { date: 14, mood: dayQuality === "good" ? "happy" : dayQuality === "concerning" ? "concerned" : "sleepy", color: dayQuality === "good" ? "bg-emerald-400" : dayQuality === "concerning" ? "bg-rose-400" : "bg-sky-400", active: true },
+              ].map((d) => (
+                <div key={d.date} className="flex flex-col items-center gap-1.5 relative group">
+                  <span className={`text-[9px] font-bold ${d.active ? 'text-sky-600' : 'text-slate-400'} mb-1`}>{d.date}</span>
+                  <div className={`w-7 h-7 rounded-full ${d.color} shadow-sm flex items-center justify-center transition-transform duration-300 group-hover:scale-110 relative ${d.active ? 'ring-2 ring-sky-100 shadow-md' : ''}`}>
+                    <Rocky mood={d.mood as RockyMood} className="scale-[0.45] origin-center" />
+                    {d.active && (
+                      <div className="absolute -inset-1 rounded-full border-2 border-sky-400 animate-pulse opacity-50"></div>
+                    )}
+                  </div>
+                </div>
+              ))}
+
+              {/* Future days placeholders */}
+              {[...Array(12)].map((_, i) => (
+                <div key={`future-${i}`} className="flex flex-col items-center gap-1.5 opacity-20">
+                  <span className="text-[9px] font-bold text-slate-400 mb-1">{15 + i}</span>
+                  <div className="w-7 h-7 rounded-full bg-slate-200 border border-slate-300"></div>
+                </div>
+              ))}
+            </div>
+
+          </section>
+        </Link>
+      </div>
+
+      <div id="alerts" className="mb-6 flex items-center justify-between">
+        <h2 className="text-xl font-semibold text-slate-800 tracking-tight">Recent Notifications</h2>
+        <div className="flex items-center gap-2 px-3 py-1 bg-white/60 backdrop-blur-sm rounded-full border border-white/50 shadow-sm">
+          <span className="h-2 w-2 rounded-full bg-emerald-400" style={{ animation: "subtlePulse 2s infinite" }} />
+          <span className="text-xs font-semibold text-slate-500">Live feed connected</span>
         </div>
       </div>
 
-      {todaysIncidents.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-zinc-800 bg-zinc-900/30 p-14 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-zinc-800/60">
-            <svg className="h-5 w-5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.788m13.788 0c3.808 3.808 3.808 9.98 0 13.788M12 12h.008v.008H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-            </svg>
-          </div>
-          <p className="text-sm font-medium text-zinc-300">No events today</p>
-          <p className="mt-1 text-xs text-zinc-600">
-            Open the Simulation Studio to record audio or run a demo scenario.
-          </p>
-          <Link
-            href="/simulate"
-            className="mt-5 inline-block rounded-lg bg-emerald-500 px-5 py-2 text-xs font-medium text-zinc-950 transition-all hover:bg-emerald-400 active:scale-[0.97]"
-          >
-            Open Simulation Studio
-          </Link>
-        </div>
-      ) : (
-        <div className="space-y-2">
-          {todaysIncidents.map((incident, idx) => (
+      {
+        todaysIncidents.length === 0 ? (
+          <div className="card-soft p-12 text-center bg-white/40 backdrop-blur-md border border-white/50">
+            <Rocky mood="sleepy" className="scale-100 opacity-60 mb-6 mx-auto" />
+            <p className="text-lg font-semibold text-slate-700">All quiet here.</p>
+            <p className="mt-2 text-sm text-slate-500 font-medium">
+              Rocky is resting. Open the Simulation Studio to run a demo scenario.
+            </p>
             <Link
-              key={incident.id}
-              href={`/events/${incident.id}`}
-              className="group flex items-start gap-4 rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-4 transition-all hover:border-zinc-700/60 hover:bg-zinc-900/70"
-              style={{
-                animationDelay: `${idx * 40}ms`,
-                animation: "fadeSlideIn 0.3s ease-out both",
-              }}
+              href="/simulate"
+              className="mt-6 inline-block rounded-2xl bg-[#d1fae5] px-6 py-3 text-sm font-semibold text-[#065f46] transition-all hover:bg-[#a7f3d0] active:scale-[0.97] card-hover shadow-sm"
             >
-              <div className="flex flex-col items-center pt-1.5">
-                <span
-                  className={`h-2.5 w-2.5 rounded-full ${severityDot(incident.severity)}`}
-                />
-                {idx < todaysIncidents.length - 1 && (
-                  <span className="mt-1.5 h-full w-px bg-zinc-800/60" />
-                )}
-              </div>
-
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <EventIcon type={incident.event_type} />
-                  <span className="text-sm font-medium text-zinc-200">
-                    {EVENT_LABELS[incident.event_type] ?? incident.event_type}
-                  </span>
-                  <span className="text-xs text-zinc-600">
-                    {new Date(incident.created_at).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </span>
-                </div>
-                <p className="mt-1 truncate text-sm text-zinc-500">
-                  {incident.summary ?? "Awaiting analysis..."}
-                </p>
-                {formatBpm(incident.sensor_data) && (
-                  <p className="mt-0.5 text-xs text-zinc-600">
-                    {formatBpm(incident.sensor_data)}
-                  </p>
-                )}
-              </div>
-
-              <span
-                className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ring-1 ${severityBadge(
-                  incident.severity
-                )}`}
-              >
-                {incident.severity}
-              </span>
+              Open Simulation Studio
             </Link>
-          ))}
-        </div>
-      )}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {todaysIncidents.map((incident, idx) => (
+              <NotificationCard key={incident.id} incident={incident} idx={idx} />
+            ))}
+          </div>
+        )
+      }
 
-      {incidents.length > todaysIncidents.length && (
-        <p className="mt-8 text-center text-xs text-zinc-600">
-          +{incidents.length - todaysIncidents.length} older events
-        </p>
-      )}
+      {
+        incidents.length > todaysIncidents.length && (
+          <div className="mt-12 text-center">
+            <button className="text-sm font-semibold text-slate-400 hover:text-slate-600 transition-colors bg-white px-4 py-2 rounded-full border border-slate-200 shadow-sm card-hover">
+              View {incidents.length - todaysIncidents.length} older notifications in folders
+            </button>
+          </div>
+        )
+      }
     </>
   );
 }

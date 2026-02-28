@@ -141,12 +141,12 @@ export function SimulationPanel() {
       const w = canvas!.width;
       const h = canvas!.height;
 
-      ctx!.fillStyle = "#09090b";
+      ctx!.fillStyle = "#f8fafc";
       ctx!.fillRect(0, 0, w, h);
 
       ctx!.lineWidth = 2;
-      ctx!.strokeStyle = "#34d399";
-      ctx!.shadowColor = "#34d399";
+      ctx!.strokeStyle = "#10b981";
+      ctx!.shadowColor = "#10b981";
       ctx!.shadowBlur = 4;
       ctx!.beginPath();
 
@@ -177,10 +177,10 @@ export function SimulationPanel() {
 
     const w = canvas.width;
     const h = canvas.height;
-    ctx.fillStyle = "#09090b";
+    ctx.fillStyle = "#f8fafc";
     ctx.fillRect(0, 0, w, h);
     ctx.lineWidth = 1;
-    ctx.strokeStyle = "#27272a";
+    ctx.strokeStyle = "#cbd5e1";
     ctx.beginPath();
     ctx.moveTo(0, h / 2);
     ctx.lineTo(w, h / 2);
@@ -194,7 +194,7 @@ export function SimulationPanel() {
   function cleanupAudioResources() {
     cancelAnimationFrame(animFrameRef.current);
     if (audioCtxRef.current) {
-      audioCtxRef.current.close().catch(() => {});
+      audioCtxRef.current.close().catch(() => { });
       audioCtxRef.current = null;
     }
     analyserRef.current = null;
@@ -396,20 +396,19 @@ export function SimulationPanel() {
   return (
     <div className="space-y-8">
       {/* Live Audio Capture */}
-      <section className="overflow-hidden rounded-xl border border-zinc-800/60 bg-zinc-900/50">
-        <div className="border-b border-zinc-800/60 px-6 py-4">
+      <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white/60 card-soft">
+        <div className="border-b border-slate-200/50 px-6 py-4">
           <div className="flex items-center gap-2">
             <span
-              className={`inline-block h-2 w-2 rounded-full ${
-                isRecording ? "bg-rose-500" : "bg-zinc-700"
-              }`}
+              className={`inline-block h-2 w-2 rounded-full ${isRecording ? "bg-rose-500" : "bg-slate-300"
+                }`}
               style={isRecording ? { animation: "subtlePulse 1.5s infinite" } : undefined}
             />
-            <h2 className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">
               Live Audio Capture
             </h2>
           </div>
-          <p className="mt-1 text-xs text-zinc-600">
+          <p className="mt-1 text-xs font-medium text-slate-500">
             Record from your microphone. Audio is sent to Gemini for
             transcription and safety analysis.
           </p>
@@ -420,7 +419,7 @@ export function SimulationPanel() {
             ref={canvasRef}
             width={800}
             height={100}
-            className="h-20 w-full rounded-lg border border-zinc-800/40"
+            className="h-20 w-full rounded-xl border border-slate-200/50 bg-slate-50/50"
           />
         </div>
 
@@ -429,21 +428,21 @@ export function SimulationPanel() {
             <button
               onClick={startRecording}
               disabled={running}
-              className="flex items-center gap-2 rounded-lg bg-rose-500 px-4 py-2 text-xs font-medium text-white transition-all hover:bg-rose-400 active:scale-[0.97] disabled:opacity-50"
+              className="flex items-center gap-2 rounded-xl bg-rose-50 px-4 py-2 text-xs font-bold text-rose-700 transition-all hover:bg-rose-100 active:scale-[0.97] disabled:opacity-50 ring-1 ring-rose-200 card-hover shadow-sm"
             >
-              <span className="h-2 w-2 rounded-full bg-white" />
+              <span className="h-2 w-2 rounded-full bg-rose-500" />
               Start Recording
             </button>
           )}
 
           {isRecording && (
             <>
-              <span className="font-mono text-base font-semibold tabular-nums text-rose-400">
+              <span className="font-mono text-base font-bold tabular-nums text-rose-600">
                 {formatTime(recordingTime)}
               </span>
               <button
                 onClick={stopRecording}
-                className="rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2 text-xs font-medium text-zinc-300 transition-all hover:bg-zinc-700 active:scale-[0.97]"
+                className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-600 transition-all hover:bg-slate-50 active:scale-[0.97] card-hover shadow-sm"
               >
                 Stop
               </button>
@@ -452,7 +451,7 @@ export function SimulationPanel() {
 
           {!isRecording && audioBlob && (
             <>
-              <span className="text-xs text-zinc-500">
+              <span className="text-xs font-medium text-slate-500">
                 {formatTime(recordingTime)} recorded
               </span>
               {audioPreviewUrl && (
@@ -461,14 +460,14 @@ export function SimulationPanel() {
               <button
                 onClick={submitAudioIncident}
                 disabled={running}
-                className="rounded-lg bg-emerald-500 px-4 py-2 text-xs font-medium text-zinc-950 transition-all hover:bg-emerald-400 active:scale-[0.97] disabled:opacity-50"
+                className="rounded-xl bg-[#d1fae5] px-4 py-2 text-xs font-bold text-[#065f46] transition-all hover:bg-[#a7f3d0] active:scale-[0.97] disabled:opacity-50 card-hover shadow-sm"
               >
                 {running ? "Processing..." : "Analyze Audio"}
               </button>
               <button
                 onClick={discardRecording}
                 disabled={running}
-                className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-xs text-zinc-400 transition-all hover:bg-zinc-700 disabled:opacity-50"
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-500 transition-all hover:bg-slate-50 disabled:opacity-50 card-hover shadow-sm"
               >
                 Discard
               </button>
@@ -477,7 +476,7 @@ export function SimulationPanel() {
         </div>
 
         {micError && (
-          <div className="mx-6 mb-4 rounded-lg border border-rose-500/20 bg-rose-500/10 px-4 py-2 text-xs text-rose-400">
+          <div className="mx-6 mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-medium text-rose-700 shadow-sm">
             {micError}
           </div>
         )}
@@ -485,7 +484,7 @@ export function SimulationPanel() {
 
       {/* Quick Scenarios */}
       <section>
-        <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-zinc-500">
+        <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">
           Quick Scenarios
         </h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -494,15 +493,15 @@ export function SimulationPanel() {
               key={s.key}
               onClick={() => runScenario(s)}
               disabled={running || isRecording}
-              className="rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-4 text-left transition-all hover:border-zinc-700/60 hover:bg-zinc-900/70 active:scale-[0.98] disabled:opacity-50"
+              className="rounded-2xl border border-slate-200/60 bg-white/60 p-4 text-left transition-all hover:border-slate-300 hover:bg-white active:scale-[0.98] disabled:opacity-50 card-soft card-hover"
             >
               <div className="flex items-center gap-2">
                 <ScenarioIcon type={s.key} />
-                <span className="text-xs font-medium text-zinc-200">
+                <span className="text-xs font-bold text-slate-700">
                   {s.label}
                 </span>
               </div>
-              <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-600">
+              <p className="mt-1.5 text-[11px] font-medium leading-relaxed text-slate-500">
                 {s.description}
               </p>
             </button>
@@ -512,13 +511,13 @@ export function SimulationPanel() {
 
       {/* Pipeline Progress */}
       {(steps.length > 0 || error) && (
-        <section className="rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-6">
-          <h3 className="mb-4 text-xs font-medium uppercase tracking-wider text-zinc-500">
-            Pipeline
+        <section className="rounded-2xl border border-slate-200/60 bg-white/60 p-6 card-soft">
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-400">
+            Pipeline Progress
           </h3>
 
           {error && (
-            <div className="mb-4 rounded-lg border border-rose-500/20 bg-rose-500/10 px-4 py-2 text-xs text-rose-400">
+            <div className="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-medium text-rose-700 shadow-sm">
               {error}
             </div>
           )}
@@ -527,30 +526,29 @@ export function SimulationPanel() {
             {steps.map((step, i) => (
               <div key={i} className="flex items-center gap-3">
                 {step.status === "done" && (
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#d1fae5] text-[#065f46]">
                     <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
                 )}
                 {step.status === "active" && (
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/10">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400" style={{ animation: "subtlePulse 1.5s infinite" }} />
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#d1fae5]">
+                    <span className="h-2 w-2 rounded-full bg-[#059669]" style={{ animation: "subtlePulse 1.5s infinite" }} />
                   </span>
                 )}
                 {step.status === "pending" && (
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-800/60">
-                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-600" />
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100">
+                    <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
                   </span>
                 )}
                 <span
-                  className={`text-xs ${
-                    step.status === "done"
-                      ? "text-zinc-400"
+                  className={`text-xs ${step.status === "done"
+                      ? "text-slate-500 font-medium"
                       : step.status === "active"
-                        ? "font-medium text-emerald-400"
-                        : "text-zinc-600"
-                  }`}
+                        ? "font-bold text-[#059669]"
+                        : "text-slate-400 font-medium"
+                    }`}
                 >
                   {step.text}
                 </span>
@@ -559,27 +557,27 @@ export function SimulationPanel() {
           </div>
 
           {result && (
-            <div className="mt-5 flex items-center gap-3 rounded-lg border border-emerald-500/15 bg-emerald-500/5 p-4">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400">
+            <div className="mt-5 flex items-center gap-3 rounded-xl border border-[#a7f3d0] bg-[#ecfdf5] p-4 shadow-sm">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#d1fae5] text-[#059669]">
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </span>
               <div className="text-xs">
-                <span className="font-medium text-emerald-400">
+                <span className="font-bold text-[#065f46]">
                   {result.label}
                 </span>{" "}
-                <span className="text-zinc-500">incident analyzed</span>
+                <span className="text-slate-600 font-medium">incident analyzed</span>
                 <div className="mt-1 flex gap-3">
                   <a
                     href={`/events/${result.incidentId}`}
-                    className="font-medium text-zinc-300 underline underline-offset-2 transition-colors hover:text-zinc-100"
+                    className="font-bold text-sky-600 underline underline-offset-2 transition-colors hover:text-sky-800"
                   >
                     View Detail
                   </a>
                   <a
                     href="/dashboard"
-                    className="font-medium text-zinc-300 underline underline-offset-2 transition-colors hover:text-zinc-100"
+                    className="font-bold text-sky-600 underline underline-offset-2 transition-colors hover:text-sky-800"
                   >
                     Dashboard
                   </a>
