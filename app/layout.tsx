@@ -24,7 +24,7 @@ export default function RootLayout({
           style={{
             backgroundImage: "url('/background.jpg')",
             filter: 'blur(36px) saturate(350%) contrast(120%)',
-            opacity: 0.35,
+            opacity: 0.1,
             transform: 'scale(1.2)', // To prevent blurry edges from bleeding inwards
           }}
         />
