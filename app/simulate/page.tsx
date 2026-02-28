@@ -1,6 +1,6 @@
 import { requireAuth } from "@/lib/auth";
 import Link from "next/link";
-import { SimulationPanel } from "./SimulationPanel";
+import { SimulationTabs } from "./SimulationTabs";
 
 export default async function SimulatePage() {
   await requireAuth();
@@ -31,16 +31,7 @@ export default async function SimulatePage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-6 py-8">
-        <div className="mb-8">
-          <h1 className="text-xl font-semibold text-zinc-100">
-            Simulation Studio
-          </h1>
-          <p className="mt-1 text-sm text-zinc-500">
-            Record live audio or run sensor scenarios. Every incident flows
-            through the full AI analysis pipeline.
-          </p>
-        </div>
-        <SimulationPanel />
+        <SimulationTabs />
       </main>
     </div>
   );
