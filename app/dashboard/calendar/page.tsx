@@ -40,7 +40,7 @@ export default async function CalendarPage() {
     }
 
     return (
-        <ParentDashboardLayout currentPath="/dashboard/calendar" userName={userName}>
+        <ParentDashboardLayout currentPath="/dashboard/calendar" userName={userName} userId={session.user.id} initialIncidents={incidents}>
 
             <div className="mb-8">
                 <h2 className="text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2">

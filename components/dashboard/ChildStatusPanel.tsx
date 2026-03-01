@@ -1,10 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Rocky } from "../mascot/Rocky";
 import { Battery, MapPin, Signal, ShieldCheck, Clock } from "lucide-react";
 
+function useCurrentTime() {
+    const [now, setNow] = useState(new Date());
+    useEffect(() => {
+        const id = setInterval(() => setNow(new Date()), 60_000);
+        return () => clearInterval(id);
+    }, []);
+    return now;
+}
+
 export function ChildStatusPanel() {
+    const now = useCurrentTime();
+    const lastCheckTime = new Date(now.getTime() - 2 * 60_000); // 2 minutes ago
+    const lastCheckLabel = lastCheckTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
     return (
         <aside className="w-full lg:w-80 flex flex-col gap-6 animate-in fade-in slide-in-from-right duration-700">
             {/* Child Profile Card */}
@@ -21,7 +34,7 @@ export function ChildStatusPanel() {
                         <div className="absolute bottom-1 right-1 w-6 h-6 bg-emerald-400 border-4 border-white rounded-full shadow-sm"></div>
                     </div>
 
-                    <h2 className="text-xl font-bold text-slate-800 tracking-tight">Maryam's SafeDay</h2>
+                    <h2 className="text-xl font-bold text-slate-800 tracking-tight">Maryam's Rocky Companion</h2>
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Age 8 • Active Now</p>
 
                     <div className="mt-6 w-full grid grid-cols-3 gap-2">
@@ -86,7 +99,7 @@ export function ChildStatusPanel() {
 
                 <div className="flex items-center gap-2 text-[10px] font-bold text-slate-500">
                     <Clock className="w-3.5 h-3.5" />
-                    Last Check: 04:08 AM
+                    Last Check: {lastCheckLabel}
                 </div>
             </div>
         </aside>

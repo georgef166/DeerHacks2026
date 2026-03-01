@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { broadcastIncident } from "@/lib/notify";
 
 /* ── config ─────────────────────────────────────────────── */
 const HR_BASELINE = 82;
@@ -54,6 +55,7 @@ export function LiveMonitor() {
   const [spiking, setSpiking] = useState(false);
   const [elevatedSec, setElevatedSec] = useState(0);
   const [hrBusy, setHrBusy] = useState(false);
+  const hrBusyRef = useRef(false);
   const hrTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const elevatedRef = useRef(0);
   const spikingRef = useRef(false);
@@ -62,6 +64,8 @@ export function LiveMonitor() {
   const [countdown, setCountdown] = useState(AUDIO_CHUNK_SEC);
   const [cycleLogs, setCycleLogs] = useState<AudioCycleLog[]>([]);
   const [micError, setMicError] = useState<string | null>(null);
+  const [isIncidentRecording, setIsIncidentRecording] = useState(false);
+  const incidentTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cycleIdRef = useRef(0);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -167,8 +171,14 @@ export function LiveMonitor() {
   /* ================================================================ */
   const triggerHrIncident = useCallback(
     async (currentBpm: number, durationSec: number) => {
-      if (hrBusy) return;
+      if (hrBusyRef.current) return;
+      hrBusyRef.current = true;
       setHrBusy(true);
+
+      // Immediately stop the spike so BPM drifts back to baseline
+      spikingRef.current = false;
+      setSpiking(false);
+
       try {
         const loc = locationRef.current;
         const hrBody: Record<string, number | undefined> = {
@@ -188,6 +198,7 @@ export function LiveMonitor() {
         });
         if (res.ok) {
           const data = await res.json();
+          if (data.incident) broadcastIncident(data.incident);
           pushEvent({
             type: "hr_incident",
             label: `Heart rate incident — ${currentBpm} bpm for ${durationSec}s`,
@@ -202,9 +213,11 @@ export function LiveMonitor() {
         setHrBusy(false);
         elevatedRef.current = 0;
         setElevatedSec(0);
+        // Cooldown: prevent another HR incident for 15 seconds
+        setTimeout(() => { hrBusyRef.current = false; }, 15_000);
       }
     },
-    [hrBusy, router]
+    [router]
   );
 
   function startHeartRate() {
@@ -246,7 +259,13 @@ export function LiveMonitor() {
     const next = !spiking;
     setSpiking(next);
     spikingRef.current = next;
-    if (next) setBpm(HR_SPIKE_THRESHOLD + Math.round(Math.random() * 20));
+    if (next) {
+      setBpm(HR_SPIKE_THRESHOLD + Math.round(Math.random() * 20));
+    } else {
+      // Immediately reset counter when spike is turned off
+      elevatedRef.current = 0;
+      setElevatedSec(0);
+    }
   }
 
   /* ================================================================ */
@@ -309,6 +328,13 @@ export function LiveMonitor() {
         );
 
         if (isIncident) {
+          setIsIncidentRecording(true);
+          if (incidentTimeoutRef.current) clearTimeout(incidentTimeoutRef.current);
+          incidentTimeoutRef.current = setTimeout(() => {
+            setIsIncidentRecording(false);
+          }, 60000);
+
+          if (data.incident) broadcastIncident(data.incident);
           prevChunkB64Ref.current = null;
           pushEvent({
             type: "audio_scan",
@@ -338,6 +364,8 @@ export function LiveMonitor() {
     setMicError(null);
     setCycleLogs([]);
     prevChunkB64Ref.current = null;
+    setIsIncidentRecording(false);
+    if (incidentTimeoutRef.current) clearTimeout(incidentTimeoutRef.current);
     audioActiveRef.current = true;
     beginAudioCycle();
   }
@@ -528,6 +556,9 @@ export function LiveMonitor() {
       }
 
       setPipelineResult({ incidentId: incident.id, label: "Fall Detected" });
+      // Broadcast fall incident for notifications (use analyzed data if available)
+      const fallIncident = { ...incident, ...(analyzeData.analysis || {}), status: "analyzed" };
+      broadcastIncident(fallIncident);
       pushEvent({
         type: "fall_trigger",
         label: "Fall detected — 2.8g impact",
@@ -551,6 +582,7 @@ export function LiveMonitor() {
       if (countdownRef.current) clearInterval(countdownRef.current);
       audioActiveRef.current = false;
       cancelAnimationFrame(animFrameRef.current);
+      if (incidentTimeoutRef.current) clearTimeout(incidentTimeoutRef.current);
       audioCtxRef.current?.close().catch(() => { });
       streamRef.current?.getTracks().forEach((t) => t.stop());
     };
@@ -684,9 +716,15 @@ export function LiveMonitor() {
                 height={100}
                 className="h-16 w-full rounded-lg border border-slate-200/50 bg-white"
               />
-              <p className="mt-2 text-[10px] text-slate-700">
-                {AUDIO_CHUNK_SEC}s rolling chunks — transcribed and analyzed automatically
-              </p>
+              {isIncidentRecording ? (
+                <p className="mt-2 text-[10px] text-rose-500 font-bold animate-pulse">
+                  Alert detected! Saving extended 60s incident context...
+                </p>
+              ) : (
+                <p className="mt-2 text-[10px] text-slate-700">
+                  Rolling 30s buffer — completely overwrites previous 30s unless an alert is detected.
+                </p>
+              )}
             </div>
 
             {micError && (
@@ -798,63 +836,32 @@ export function LiveMonitor() {
         </section>
       )}
 
-      {/* ── Audio Scan History ───────────────────────── */}
+      {/* ── Audio Dashcam Status ───────────────────────── */}
       {cycleLogs.length > 0 && (
         <section className="rounded-xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm p-5">
           <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-slate-500">
-            Audio Scan History
+            Audio Status
           </h3>
-          <div className="space-y-2">
-            {cycleLogs.map((log) => (
-              <div key={log.id} className="flex items-start gap-3 rounded-lg border border-slate-200 bg-white/80 p-3">
-                {log.status === "recording" && (
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-500/10">
-                    <span className="h-2 w-2 rounded-full bg-rose-400" style={{ animation: "subtlePulse 1s infinite" }} />
-                  </span>
-                )}
-                {log.status === "analyzing" && (
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500/10">
-                    <span className="h-2 w-2 rounded-full bg-amber-400" style={{ animation: "subtlePulse 1s infinite" }} />
-                  </span>
-                )}
-                {log.status === "done" && log.result === "incident" && (
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-500/15 text-rose-400">
-                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126z" />
-                    </svg>
-                  </span>
-                )}
-                {log.status === "done" && log.result === "skip" && (
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400">
-                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                )}
-
-                <div className="min-w-0 flex-1 text-xs">
-                  {log.status === "recording" && <span className="text-rose-400">Recording chunk #{log.id}...</span>}
-                  {log.status === "analyzing" && <span className="text-amber-400">Transcribing &amp; analyzing #{log.id}...</span>}
-                  {log.status === "done" && log.result === "incident" && (
-                    <>
-                      <span className="font-medium text-rose-400">Alert — {log.severity}</span>
-                      {log.incidentId && (
-                        <a href={`/events/${log.incidentId}`} className="ml-2 text-slate-500 underline underline-offset-2 hover:text-slate-700">
-                          View
-                        </a>
-                      )}
-                      {log.transcript && <p className="mt-1 truncate text-slate-500">&ldquo;{log.transcript}&rdquo;</p>}
-                    </>
-                  )}
-                  {log.status === "done" && log.result === "skip" && (
-                    <>
-                      <span className="text-slate-500">Chunk #{log.id} — clear{log.error && ` (${log.error})`}</span>
-                      {log.transcript && <p className="mt-0.5 truncate text-slate-700">&ldquo;{log.transcript}&rdquo;</p>}
-                    </>
-                  )}
+          <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white/80 p-3">
+            {isIncidentRecording ? (
+              <>
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-500/10">
+                  <span className="h-2 w-2 rounded-full bg-rose-400" style={{ animation: "subtlePulse 1s infinite" }} />
+                </span>
+                <div className="text-xs font-bold text-rose-500">
+                  <div className="animate-pulse">Alert detected! Recording continuous context until alerts are resolved...</div>
                 </div>
-              </div>
-            ))}
+              </>
+            ) : (
+              <>
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/10">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" style={{ animation: "subtlePulse 1s infinite" }} />
+                </span>
+                <div className="text-xs text-slate-500 font-medium">
+                  A recording was processed. System is continuing to record and overwrite rolling 30s buffer.
+                </div>
+              </>
+            )}
           </div>
         </section>
       )}

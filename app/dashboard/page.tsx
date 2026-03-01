@@ -30,7 +30,7 @@ export default async function DashboardPage() {
     userName = userName.split(" ")[0];
   }
   return (
-    <ParentDashboardLayout currentPath="/dashboard" userName={userName}>
+    <ParentDashboardLayout currentPath="/dashboard" userName={userName} userId={userId} initialIncidents={(incidents ?? []) as Incident[]}>
       <div className="flex flex-col lg:flex-row gap-12">
         <div className="flex-1 min-w-0">
           <RealtimeTimeline

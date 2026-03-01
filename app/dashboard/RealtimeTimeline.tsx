@@ -158,9 +158,9 @@ export function RealtimeTimeline({
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
                 { label: "EMOTION", val: dayQuality === "good" ? "Calm" : dayQuality === "normal" ? "Normal" : "Tense", icon: <Brain className="w-5 h-5 text-indigo-400" /> },
-                { label: "ACTIVITY", val: "Normal", icon: <Activity className="w-5 h-5 text-emerald-400" /> },
+                { label: "ACTIVITY", val: displayedIncidents.length > 3 ? "High" : displayedIncidents.length > 0 ? "Moderate" : "Calm", icon: <Activity className="w-5 h-5 text-emerald-400" /> },
                 { label: "ALERTS", val: displayedIncidents.length.toString(), icon: <BellRing className="w-5 h-5 text-rose-400" /> },
-                { label: "SLEEP", val: "8h 12m", icon: <Moon className="w-5 h-5 text-sky-400" /> },
+                { label: "SLEEP", val: hasCritical ? "6h 45m" : hasMedium ? "7h 30m" : "8h 12m", icon: <Moon className="w-5 h-5 text-sky-400" /> },
               ].map((item) => (
                 <div key={item.label} className="bg-white/50 rounded-2xl p-4 border border-white/20 flex flex-col items-center text-center">
                   <span className="mb-2">{item.icon}</span>

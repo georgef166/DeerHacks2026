@@ -66,7 +66,7 @@ export default function LoginPage() {
             Welcome back
           </h1>
           <p className="mt-1.5 text-sm font-medium text-slate-500">
-            Sign in to SafeDay Companion
+            Sign in to Rocky Companion
           </p>
         </div>
 

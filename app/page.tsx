@@ -13,7 +13,7 @@ export default async function HomePage() {
             <Rocky mood="happy" className="scale-110" />
           </div>
           <h1 className="text-3xl font-semibold tracking-tight text-slate-800">
-            SafeDay Companion
+            Rocky Companion
           </h1>
           <p className="mt-2 text-base text-slate-500 font-medium">
             Your monitoring dashboard is ready.
@@ -46,7 +46,7 @@ export default async function HomePage() {
               <Rocky mood="happy" className="scale-125" />
             </div>
             <h1 className="text-4xl font-semibold tracking-tight text-slate-800 sm:text-5xl">
-              SafeDay Companion
+              Rocky Companion
             </h1>
             <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-slate-500 font-medium">
               Wearable sensors detect distress. AI analyzes what happened.

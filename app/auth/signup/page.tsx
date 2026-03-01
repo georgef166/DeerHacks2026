@@ -63,7 +63,7 @@ export default function SignupPage() {
             Create account
           </h1>
           <p className="mt-1.5 text-sm font-medium text-slate-500">
-            Start monitoring with SafeDay
+            Start monitoring with Rocky
           </p>
         </div>
 

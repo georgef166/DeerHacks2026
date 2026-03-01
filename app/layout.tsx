@@ -5,7 +5,7 @@ import "./globals.css";
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
-  title: "SafeDay Companion",
+  title: "Rocky Companion",
   description:
     "Child safety monitoring — pulse, motion, and audio signals turned into actionable parent alerts.",
 };
