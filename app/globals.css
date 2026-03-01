@@ -24,6 +24,15 @@
     box-shadow: 0 16px 32px -4px rgba(0, 0, 0, 0.08), 0 0 8px rgba(0, 0, 0, 0.03);
   }
 
+  .folder-stack-item {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, z-index 0s;
+  }
+  .folder-stack-item.pulled-out {
+    transform: translateY(-100%);
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.2), 0 0 16px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+  }
+
   .animate-float {
     animation: float 4s ease-in-out infinite;
   }

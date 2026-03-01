@@ -1,3 +1,9 @@
+export interface ReportedLocation {
+  lat: number;
+  lng: number;
+  address?: string;
+}
+
 export interface SensorData {
   heart_rate?: {
     bpm: number;
@@ -14,6 +20,7 @@ export interface SensorData {
     anomaly: boolean;
     duration_sec?: number;
   };
+  reported_location?: ReportedLocation;
 }
 
 export interface Incident {

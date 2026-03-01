@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { analyzeWithVultr } from "@/lib/vultr";
-import type { AnalysisResult } from "@/lib/types";
+import type { AnalysisResult, SensorData } from "@/lib/types";
 
 export async function POST(req: Request) {
   try {
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json().catch(() => ({}));
-    const { bpm, baseline, elevated_duration_sec } = body;
+    const { bpm, baseline, elevated_duration_sec, reported_lat, reported_lng, reported_address } = body;
 
     if (!bpm || !baseline) {
       return NextResponse.json(
@@ -21,23 +21,30 @@ export async function POST(req: Request) {
       );
     }
 
-    const sensorData = {
+    const sensorData: Record<string, unknown> = {
       heart_rate: { bpm, elevated: true, baseline },
       accelerometer: { fall_detected: false },
       audio: { level_db: 45, anomaly: false },
     };
+    if (typeof reported_lat === "number" && typeof reported_lng === "number") {
+      sensorData.reported_location = {
+        lat: reported_lat,
+        lng: reported_lng,
+        ...(reported_address && { address: reported_address }),
+      };
+    }
 
     let analysis: AnalysisResult;
 
     try {
-      analysis = await analyzeWithVultr("heart_rate", sensorData);
+      analysis = await analyzeWithVultr("heart_rate", sensorData as SensorData);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       console.error("[monitor/heartrate] Vultr failed:", msg);
 
       analysis = {
         severity: bpm >= 160 ? "high" : "medium",
-        summary: `Sustained elevated heart rate of ${bpm} bpm detected (baseline: ${baseline} bpm) for ${elevated_duration_sec ?? 0} seconds. LLM analysis unavailable.`,
+        summary: `Sustained elevated heart rate of ${bpm} bpm detected (baseline: ${baseline} bpm) for ${elevated_duration_sec ?? 0} seconds.`,
         categories: ["medical", "physical_safety"],
         suggested_actions: [
           "Check on your child immediately",
@@ -52,6 +59,7 @@ export async function POST(req: Request) {
     const supabaseAdmin = getSupabaseAdmin();
     const incidentId = crypto.randomUUID();
 
+    const heartRate = sensorData.heart_rate as { bpm: number; elevated: boolean; baseline: number } | undefined;
     const { data: incident, error: insertErr } = await supabaseAdmin
       .from("incidents")
       .insert({
@@ -60,10 +68,9 @@ export async function POST(req: Request) {
         event_type: "heart_rate",
         sensor_data: {
           ...sensorData,
-          heart_rate: {
-            ...sensorData.heart_rate,
-            elevated_duration_sec: elevated_duration_sec ?? 0,
-          },
+          heart_rate: heartRate
+            ? { ...heartRate, elevated_duration_sec: elevated_duration_sec ?? 0 }
+            : { bpm, elevated: true, baseline, elevated_duration_sec: elevated_duration_sec ?? 0 },
         },
         audio_url: null,
         transcript: "[No audio — triggered by heart rate sensor]",

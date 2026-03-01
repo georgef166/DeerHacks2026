@@ -4,7 +4,7 @@ import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { transcribeAudio } from "@/lib/elevenlabs";
 import { filterTranscript } from "@/lib/keyword-filter";
 import { analyzeWithVultr } from "@/lib/vultr";
-import type { AnalysisResult } from "@/lib/types";
+import type { AnalysisResult, SensorData } from "@/lib/types";
 
 export async function POST(req: Request) {
   try {
@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json().catch(() => ({}));
-    const { audio_base64, audio_content_type, prev_audio_base64 } = body;
+    const { audio_base64, audio_content_type, prev_audio_base64, reported_lat, reported_lng, reported_address } = body;
 
     if (!audio_base64) {
       return NextResponse.json(
@@ -52,16 +52,23 @@ export async function POST(req: Request) {
     }
 
     // Layer 3: LLM analysis (Vultr only — no Gemini fallback for dashcam)
-    const sensorData = {
+    const sensorData: Record<string, unknown> = {
       heart_rate: { bpm: 85, elevated: false, baseline: 82 },
       accelerometer: { fall_detected: false },
       audio: { level_db: 70, anomaly: true, duration_sec: 30 },
     };
+    if (typeof reported_lat === "number" && typeof reported_lng === "number") {
+      sensorData.reported_location = {
+        lat: reported_lat,
+        lng: reported_lng,
+        ...(reported_address && { address: reported_address }),
+      };
+    }
 
     let analysis: AnalysisResult;
 
     try {
-      analysis = await analyzeWithVultr("audio_anomaly", sensorData, transcript);
+      analysis = await analyzeWithVultr("audio_anomaly", sensorData as SensorData, transcript);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       console.error("[monitor/audio] Vultr analysis failed:", msg);
@@ -69,7 +76,7 @@ export async function POST(req: Request) {
       // Keyword filter already flagged this, so create incident with filter data
       analysis = {
         severity: filter.score >= 6 ? "high" : "medium",
-        summary: `Audio flagged by keyword detection: ${[...filter.matched_phrases, ...filter.matched_words].join(", ")}. ${filter.has_profanity ? "Profanity detected." : ""} LLM analysis unavailable.`,
+        summary: `Audio flagged by keyword detection: ${[...filter.matched_phrases, ...filter.matched_words].join(", ")}. ${filter.has_profanity ? "Profanity detected." : ""}`,
         categories: filter.has_profanity ? ["conflict", "distress"] : ["distress"],
         suggested_actions: [
           "Check on your child immediately",

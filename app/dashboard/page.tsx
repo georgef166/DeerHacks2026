@@ -17,8 +17,18 @@ export default async function DashboardPage() {
     .order("created_at", { ascending: false })
     .limit(50);
 
-  const userName = session.user.user_metadata?.full_name?.split(" ")[0] || "Parent";
+  let userName = "Parent";
+  if (session.user.user_metadata?.full_name) {
+    userName = session.user.user_metadata.full_name;
+  } else if (session.user.email) {
+    userName = session.user.email;
+  }
 
+  if (userName.includes("@")) {
+    userName = userName.split("@")[0];
+  } else {
+    userName = userName.split(" ")[0];
+  }
   return (
     <ParentDashboardLayout currentPath="/dashboard" userName={userName}>
       <div className="flex flex-col lg:flex-row gap-12">

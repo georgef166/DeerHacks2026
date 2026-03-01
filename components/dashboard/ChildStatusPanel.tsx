@@ -52,35 +52,24 @@ export function ChildStatusPanel() {
                 </div>
 
                 <div className="relative aspect-square rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden shadow-inner group">
-                    {/* Stylized placeholder map overlay */}
-                    <div className="absolute inset-0 bg-[#f8fafc] opacity-50" style={{ backgroundImage: 'radial-gradient(#e2e8f0 1.5px, transparent 0)', backgroundSize: '24px 24px' }}></div>
-
-                    {/* Stylized Path */}
-                    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-                        <path d="M 20 80 Q 40 70 50 50 T 80 20" fill="none" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="4 4" />
-                        <circle cx="20" cy="80" r="3" fill="#94a3b8" />
-
-                        {/* Dynamic Location Pin Animation - Fixed for SVG Stability */}
-                        <g className="animate-pulse">
-                            <circle cx="80" cy="20" r="6" fill="#f43f5e" className="opacity-40" />
-                            <circle cx="80" cy="20" r="3" fill="#f43f5e" />
-                        </g>
-                    </svg>
+                    <iframe
+                        className="absolute inset-0 w-full h-full grayscale-[50%] contrast-[1.1] opacity-90 transition-opacity group-hover:opacity-100"
+                        title="University of Toronto Mississauga Map"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-79.674%2C43.539%2C-79.648%2C43.559&amp;layer=mapnik&amp;marker=43.5487%2C-79.6627"
+                        style={{ border: 0 }}
+                        loading="lazy"
+                    ></iframe>
 
                     <div className="absolute bottom-3 left-3 right-3 bg-white/90 backdrop-blur-md p-3 rounded-xl border border-white/50 shadow-lg flex items-center gap-3">
                         <div className="w-8 h-8 rounded-lg bg-rose-50 flex items-center justify-center shrink-0">
-                            <MapPin className="w-4 h-4 text-rose-500" />
+                            <MapPin className="w-4 h-4 text-rose-500 animate-bounce" />
                         </div>
                         <div className="min-w-0">
-                            <p className="text-xs font-bold text-slate-800 truncate">Sandalwood Park</p>
-                            <p className="text-[10px] font-medium text-slate-500 truncate">Updated 2m ago</p>
+                            <p className="text-xs font-bold text-slate-800 truncate">University of Toronto Mississauga</p>
+                            <p className="text-[10px] font-medium text-slate-500 truncate">3359 Mississauga Road</p>
                         </div>
                     </div>
                 </div>
-
-                <button className="w-full py-3 rounded-2xl bg-white/60 hover:bg-white text-xs font-bold text-slate-600 border border-white/50 transition-all hover:shadow-md active:scale-[0.98]">
-                    View Full History
-                </button>
             </div>
 
             {/* Safety Perimeter Card */}

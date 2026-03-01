@@ -2,7 +2,8 @@ import { requireAuth } from "@/lib/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import type { Incident, SensorData } from "@/lib/types";
+import type { Incident, SensorData, ReportedLocation } from "@/lib/types";
+import { ActionButton } from "./ActionButton";
 import { AnalyzeButton } from "./AnalyzeButton";
 import {
   AlertCircle,
@@ -36,6 +37,8 @@ function ActionItem({
   btnText,
   btnIcon: BtnIcon,
   btnColor,
+  actionType,
+  actionValue,
 }: {
   step: number;
   title: string;
@@ -43,6 +46,8 @@ function ActionItem({
   btnText?: string;
   btnIcon?: any;
   btnColor?: string;
+  actionType?: "link" | "prompt" | "notify";
+  actionValue?: string;
 }) {
   return (
     <div className="flex items-start gap-4 pb-6 border-b border-slate-100 last:border-0 last:pb-0">
@@ -54,13 +59,14 @@ function ActionItem({
           <li>{desc}</li>
         </ul>
       </div>
-      {btnText && BtnIcon && (
-        <button
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white transition-transform active:scale-95 shadow-sm ${btnColor}`}
-        >
-          <BtnIcon className="w-3.5 h-3.5" />
-          {btnText}
-        </button>
+      {btnText && BtnIcon && btnColor && (
+        <ActionButton
+          btnText={btnText}
+          icon={<BtnIcon className="w-3.5 h-3.5" />}
+          btnColor={btnColor}
+          actionType={actionType}
+          actionValue={actionValue}
+        />
       )}
     </div>
   );
@@ -106,6 +112,15 @@ export default async function EventDetailPage({
     year: "numeric"
   });
 
+  const reportedLocation = (incident.sensor_data as SensorData & { reported_location?: ReportedLocation })?.reported_location;
+  const hasLocation = reportedLocation && typeof reportedLocation.lat === "number" && typeof reportedLocation.lng === "number";
+  const locationLabel = hasLocation
+    ? (reportedLocation!.address ?? `${reportedLocation!.lat.toFixed(5)}, ${reportedLocation!.lng.toFixed(5)}`)
+    : null;
+  const mapSrc = hasLocation
+    ? `https://www.openstreetmap.org/export/embed.html?bbox=${(reportedLocation!.lng - 0.01)}%2C${(reportedLocation!.lat - 0.01)}%2C${(reportedLocation!.lng + 0.01)}%2C${(reportedLocation!.lat + 0.01)}&layer=mapnik&marker=${reportedLocation!.lat}%2C${reportedLocation!.lng}`
+    : null;
+
   return (
     <div className="min-h-screen bg-paper text-slate-700 font-sans pb-12">
       <header className="sticky top-0 z-10 border-b border-slate-200/50 bg-white/60 px-6 py-4 backdrop-blur-xl">
@@ -138,25 +153,34 @@ export default async function EventDetailPage({
 
           <div className="flex flex-col gap-1 text-xs font-semibold text-slate-500 mb-4">
             <p>First Detected: {timeFormatted}, {dateFormatted}</p>
-            <p className={`flex items-center gap-1 ${sev.cls}`}>
-              <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
-              Live Location: 220 N Bellefield Ave
-            </p>
+            {locationLabel ? (
+              <p className={`flex items-center gap-1 ${sev.cls}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+                Reported at: {locationLabel}
+              </p>
+            ) : (
+              <p className="flex items-center gap-1 text-slate-400">
+                <MapPin className="w-3.5 h-3.5" />
+                Location not reported
+              </p>
+            )}
           </div>
 
-          {/* Map Placeholder */}
-          <div className="w-full h-48 bg-slate-100 rounded-xl mb-4 overflow-hidden relative border border-slate-200 card-soft">
-            {/* Generic Map iframe focusing on Pittsburgh/Oakland as an example */}
-            <iframe
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.openstreetmap.org/export/embed.html?bbox=-79.957%2C40.442%2C-79.947%2C40.452&layer=mapnik&marker=40.447%2C-79.952`}
-            ></iframe>
-          </div>
+          {/* Map: only when we have reported location */}
+          {mapSrc && (
+            <div className="w-full h-48 bg-slate-100 rounded-xl mb-4 overflow-hidden relative border border-slate-200 card-soft">
+              <iframe
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                src={mapSrc}
+                title="Reported location"
+              />
+            </div>
+          )}
 
           <p className="text-sm text-slate-600 font-medium leading-relaxed mb-5">
             {incident.summary ?? "Awaiting incident processing.."}
@@ -175,24 +199,26 @@ export default async function EventDetailPage({
             </div>
           )}
 
-          {/* Audio Playback Alternative if needed */}
+          {/* Audio Playback */}
           {audioUrl && (
-            <div className="mb-5 flex items-center gap-3 bg-slate-50 rounded-xl p-3 border border-slate-100">
-              <div className="h-10 w-10 shrink-0 rounded-full bg-[#ff522b] flex items-center justify-center text-white shadow-sm hover:scale-105 transition-transform cursor-pointer">
-                <PlayCircle className="w-6 h-6" />
+            <div className="mb-5 flex flex-col gap-3 bg-slate-50 rounded-xl p-4 border border-slate-100">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 shrink-0 rounded-full bg-[#ff522b] flex items-center justify-center text-white shadow-sm">
+                  <PlayCircle className="w-6 h-6 ml-0.5" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-slate-800">Captured Audio Clip</p>
+                  <p className="text-xs text-slate-500 font-medium">{timeFormatted}</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-bold text-slate-800">Captured Audio Clip</p>
-                <p className="text-xs text-slate-500 font-medium">{timeFormatted}</p>
-              </div>
-              <audio controls src={audioUrl} className="w-32 h-8" />
+              <audio controls src={audioUrl} className="w-full h-12" />
             </div>
           )}
 
-          <button className="w-full py-3.5 rounded-xl bg-[#ff522b] text-white text-sm font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-[#e64a27] transition-all active:scale-[0.98]">
-            <Radio className="w-4 h-4" />
+          <Link href={`/events/${incident.id}/live-audio`} className="w-full py-3.5 rounded-xl bg-[#ff522b] text-white text-sm font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-[#e64a27] transition-all active:scale-[0.98]">
+            <Radio className="w-4 h-4 animate-pulse" />
             Listen to live updates
-          </button>
+          </Link>
         </div>
 
         {/* Pending State for AI Analysis */}
@@ -227,6 +253,8 @@ export default async function EventDetailPage({
             btnText="Call"
             btnIcon={PhoneCall}
             btnColor="bg-[#ff522b]"
+            actionType="link"
+            actionValue="tel:911"
           />
           <ActionItem
             step={3}
@@ -235,6 +263,7 @@ export default async function EventDetailPage({
             btnText="Confirm"
             btnIcon={CheckCircle2}
             btnColor="bg-[#2563eb]"
+            actionType="prompt"
           />
           <ActionItem
             step={4}
@@ -243,6 +272,7 @@ export default async function EventDetailPage({
             btnText="Send Msg"
             btnIcon={MessageCircle}
             btnColor="bg-[#10b981]"
+            actionType="notify"
           />
           <ActionItem
             step={5}
@@ -251,6 +281,8 @@ export default async function EventDetailPage({
             btnText="Call"
             btnIcon={PhoneCall}
             btnColor="bg-[#ff522b]"
+            actionType="link"
+            actionValue="tel:18008435678"
           />
           <ActionItem
             step={6}

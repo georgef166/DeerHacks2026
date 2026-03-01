@@ -37,6 +37,18 @@ const DISTRESS_PHRASES = [
   "back off",
   "i can't breathe",
   "can't breathe",
+  "you're stupid",
+  "you are stupid",
+  "you're ugly",
+  "you are ugly",
+  "nobody likes you",
+  "everyone hates you",
+  "you're a loser",
+  "you are a loser",
+  "give me that",
+  "what's wrong with you",
+  "you're weird",
+  "you are weird"
 ];
 
 const DISTRESS_WORDS = [
@@ -82,6 +94,17 @@ const DISTRESS_WORDS = [
   "terrified",
   "panic",
   "assault",
+  "stupid",
+  "ugly",
+  "loser",
+  "weirdo",
+  "freak",
+  "dumb",
+  "idiot",
+  "fat",
+  "worthless",
+  "pathetic",
+  "nerd"
 ];
 
 const PROFANITY = [
@@ -149,7 +172,7 @@ export function filterTranscript(transcript: string): FilterResult {
     }
   }
 
-  const THRESHOLD = 2;
+  const THRESHOLD = 1;
   const flagged = score >= THRESHOLD;
 
   return { flagged, score, matched_phrases, matched_words, has_profanity };

@@ -2,6 +2,7 @@ import { requireAuth } from "@/lib/auth";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { ParentDashboardLayout } from "@/components/layout/ParentDashboardLayout";
 import { Rocky, type RockyMood } from "@/components/mascot/Rocky";
+import { CalendarClientView } from "./CalendarClientView";
 import type { Incident } from "@/lib/types";
 import { Calendar as CalendarIcon, Activity, AlertCircle, Heart } from "lucide-react";
 
@@ -25,18 +26,21 @@ export default async function CalendarPage() {
     last7Days.setDate(last7Days.getDate() - 7);
     const recentAlerts = incidents.filter(i => new Date(i.created_at) > last7Days).length;
 
-    const daysOpen = [
-        { day: "Mon", date: "10", active: false },
-        { day: "Tue", date: "11", active: false },
-        { day: "Wed", date: "12", active: false },
-        { day: "Thu", date: "13", active: false },
-        { day: "Fri", date: "14", active: true }, // "Today"
-        { day: "Sat", date: "15", active: false },
-        { day: "Sun", date: "16", active: false },
-    ];
+    let userName = "Parent";
+    if (session.user.user_metadata?.full_name) {
+        userName = session.user.user_metadata.full_name;
+    } else if (session.user.email) {
+        userName = session.user.email;
+    }
+
+    if (userName.includes("@")) {
+        userName = userName.split("@")[0];
+    } else {
+        userName = userName.split(" ")[0];
+    }
 
     return (
-        <ParentDashboardLayout currentPath="/dashboard#calendar" userName={session.user.email?.split('@')[0] || "Parent"}>
+        <ParentDashboardLayout currentPath="/dashboard/calendar" userName={userName}>
 
             <div className="mb-8">
                 <h2 className="text-2xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
@@ -78,33 +82,7 @@ export default async function CalendarPage() {
                 </div>
             </div>
 
-            <section className="card-soft bg-white/40 backdrop-blur-md p-6 md:p-8 border border-white/50">
-                <h3 className="text-lg font-bold text-slate-800 mb-6">This Week's Breakdown</h3>
-                <div className="grid grid-cols-7 gap-2 md:gap-4">
-                    {daysOpen.map((d) => (
-                        <div
-                            key={d.day}
-                            className={`flex flex-col items-center p-3 rounded-2xl transition-colors cursor-pointer card-hover ${d.active ? 'bg-slate-800 text-white shadow-md' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
-                        >
-                            <span className="text-xs font-bold mb-1">{d.day}</span>
-                            <span className={`text-lg font-bold ${d.active ? 'text-white' : 'text-slate-800'}`}>{d.date}</span>
-
-                            <div className="mt-3">
-                                <Rocky mood={d.active ? 'concerned' : 'happy'} className="scale-75 origin-top" />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-slate-100">
-                    <h4 className="text-sm font-bold text-slate-800 mb-4">Detailed Insights for Friday, 14th</h4>
-                    <div className="bg-amber-50 rounded-xl p-5 border border-amber-100">
-                        <p className="text-sm font-medium text-amber-900 mb-2">
-                            <strong className="font-bold">Summary:</strong> Rocky noticed 1 critical alert today involving a rapid heart rate spike and audio anomaly. Overall, emotional state was stressed.
-                        </p>
-                    </div>
-                </div>
-            </section>
+            <CalendarClientView incidents={incidents} />
 
         </ParentDashboardLayout>
     );

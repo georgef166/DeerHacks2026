@@ -81,6 +81,9 @@ export function LiveMonitor() {
   /* ---- fall trigger ---- */
   const [fallBusy, setFallBusy] = useState(false);
 
+  /* ---- reported location (where incident was reported) ---- */
+  const locationRef = useRef<{ lat: number; lng: number; address?: string } | null>(null);
+
   /* ---- pipeline state (for scenario triggers) ---- */
   const [pipelineSteps, setPipelineSteps] = useState<
     { text: string; status: "done" | "active" | "pending" }[]
@@ -115,7 +118,7 @@ export function LiveMonitor() {
       analyser!.getByteTimeDomainData(data);
       const w = canvas!.width;
       const h = canvas!.height;
-      ctx!.fillStyle = "#09090b";
+      ctx!.fillStyle = "#f8fafc";
       ctx!.fillRect(0, 0, w, h);
       ctx!.lineWidth = 2;
       ctx!.strokeStyle = "#34d399";
@@ -145,10 +148,10 @@ export function LiveMonitor() {
     if (!ctx) return;
     const w = canvas.width;
     const h = canvas.height;
-    ctx.fillStyle = "#09090b";
+    ctx.fillStyle = "#f8fafc";
     ctx.fillRect(0, 0, w, h);
     ctx.lineWidth = 1;
-    ctx.strokeStyle = "#27272a";
+    ctx.strokeStyle = "#e2e8f0";
     ctx.beginPath();
     ctx.moveTo(0, h / 2);
     ctx.lineTo(w, h / 2);
@@ -167,10 +170,21 @@ export function LiveMonitor() {
       if (hrBusy) return;
       setHrBusy(true);
       try {
+        const loc = locationRef.current;
+        const hrBody: Record<string, number | undefined> = {
+          bpm: currentBpm,
+          baseline: HR_BASELINE,
+          elevated_duration_sec: durationSec,
+        };
+        if (loc) {
+          hrBody.reported_lat = loc.lat;
+          hrBody.reported_lng = loc.lng;
+          if (loc.address) (hrBody as Record<string, unknown>).reported_address = loc.address;
+        }
         const res = await fetch("/api/monitor/heartrate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ bpm: currentBpm, baseline: HR_BASELINE, elevated_duration_sec: durationSec }),
+          body: JSON.stringify(hrBody),
         });
         if (res.ok) {
           const data = await res.json();
@@ -256,12 +270,18 @@ export function LiveMonitor() {
 
       try {
         const b64 = await blobToBase64(blob);
-        const payload: Record<string, string> = {
+        const payload: Record<string, string | number | undefined> = {
           audio_base64: b64,
           audio_content_type: "audio/webm",
         };
         if (prevChunkB64Ref.current) {
           payload.prev_audio_base64 = prevChunkB64Ref.current;
+        }
+        const loc = locationRef.current;
+        if (loc) {
+          payload.reported_lat = loc.lat;
+          payload.reported_lng = loc.lng;
+          if (loc.address) payload.reported_address = loc.address;
         }
 
         const res = await fetch("/api/monitor/audio", {
@@ -276,14 +296,14 @@ export function LiveMonitor() {
           prev.map((l) =>
             l.id === cycleId
               ? {
-                  ...l,
-                  status: "done",
-                  result: isIncident ? "incident" : "skip",
-                  transcript: data.transcript || "",
-                  severity: data.analysis?.severity || data.severity,
-                  incidentId: data.incident?.id,
-                  error: data.error || data.reason,
-                }
+                ...l,
+                status: "done",
+                result: isIncident ? "incident" : "skip",
+                transcript: data.transcript || "",
+                severity: data.analysis?.severity || data.severity,
+                incidentId: data.incident?.id,
+                error: data.error || data.reason,
+              }
               : l
           )
         );
@@ -391,7 +411,7 @@ export function LiveMonitor() {
     }
     cancelAnimationFrame(animFrameRef.current);
     if (audioCtxRef.current) {
-      audioCtxRef.current.close().catch(() => {});
+      audioCtxRef.current.close().catch(() => { });
       audioCtxRef.current = null;
     }
     analyserRef.current = null;
@@ -401,11 +421,30 @@ export function LiveMonitor() {
   }
 
   /* ================================================================ */
+  /*  Location capture (for incident reporting)                        */
+  /* ================================================================ */
+  function captureLocation() {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        locationRef.current = {
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        };
+      },
+      () => { },
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 60000 }
+    );
+  }
+
+  /* ================================================================ */
   /*  Master ON/OFF                                                    */
   /* ================================================================ */
   function startMonitoring() {
     setActive(true);
     activeRef.current = true;
+    locationRef.current = null;
+    captureLocation();
     setEventLog([]);
     setPipelineSteps([]);
     setPipelineError(null);
@@ -442,10 +481,17 @@ export function LiveMonitor() {
         audio: { level_db: 72, anomaly: false },
       };
 
+      const body: Record<string, unknown> = { event_type: "fall", sensor_data: sensorData };
+      const loc = locationRef.current;
+      if (loc) {
+        body.reported_lat = loc.lat;
+        body.reported_lng = loc.lng;
+        if (loc.address) body.reported_address = loc.address;
+      }
       const createRes = await fetch("/api/incidents", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event_type: "fall", sensor_data: sensorData }),
+        body: JSON.stringify(body),
       });
 
       if (!createRes.ok) {
@@ -505,7 +551,7 @@ export function LiveMonitor() {
       if (countdownRef.current) clearInterval(countdownRef.current);
       audioActiveRef.current = false;
       cancelAnimationFrame(animFrameRef.current);
-      audioCtxRef.current?.close().catch(() => {});
+      audioCtxRef.current?.close().catch(() => { });
       streamRef.current?.getTracks().forEach((t) => t.stop());
     };
   }, []);
@@ -553,10 +599,10 @@ export function LiveMonitor() {
   return (
     <div className="space-y-6">
       {/* ── Master Toggle ────────────────────────────── */}
-      <div className="flex items-center justify-between rounded-xl border border-zinc-800/60 bg-zinc-900/50 px-6 py-5">
+      <div className="flex items-center justify-between rounded-xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm px-6 py-5">
         <div>
-          <h2 className="text-sm font-semibold text-zinc-100">Live Monitoring</h2>
-          <p className="mt-0.5 text-xs text-zinc-500">
+          <h2 className="text-sm font-semibold text-slate-800">Live Monitoring</h2>
+          <p className="mt-0.5 text-xs text-slate-500">
             {active
               ? "Heart rate and audio are being monitored in real-time"
               : "Start monitoring to enable heart rate tracking and audio dashcam"}
@@ -564,11 +610,10 @@ export function LiveMonitor() {
         </div>
         <button
           onClick={active ? stopMonitoring : startMonitoring}
-          className={`relative rounded-full px-6 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all active:scale-[0.97] ${
-            active
-              ? "bg-rose-500/15 text-rose-400 ring-1 ring-rose-500/30 hover:bg-rose-500/25"
-              : "bg-emerald-500 text-zinc-950 hover:bg-emerald-400"
-          }`}
+          className={`relative rounded-full px-6 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all active:scale-[0.97] ${active
+            ? "bg-rose-500/15 text-rose-400 ring-1 ring-rose-500/30 hover:bg-rose-500/25"
+            : "bg-emerald-500 text-slate-800 hover:bg-emerald-400"
+            }`}
         >
           {active && (
             <span
@@ -584,21 +629,21 @@ export function LiveMonitor() {
       {active && (
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Heart Rate Card */}
-          <section className="overflow-hidden rounded-xl border border-zinc-800/60 bg-zinc-900/50">
-            <div className="border-b border-zinc-800/60 px-5 py-3">
+          <section className="overflow-hidden rounded-xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm">
+            <div className="border-b border-slate-200/50 px-5 py-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="inline-block h-2 w-2 rounded-full bg-rose-500" style={{ animation: "subtlePulse 1.5s infinite" }} />
-                  <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-400">Heart Rate</span>
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-slate-600">Heart Rate</span>
                 </div>
                 <span className={`text-2xl font-bold tabular-nums ${bpm >= HR_SPIKE_THRESHOLD ? "text-rose-400" : "text-emerald-400"}`}>
-                  {bpm} <span className="text-xs font-normal text-zinc-600">bpm</span>
+                  {bpm} <span className="text-xs font-normal text-slate-700">bpm</span>
                 </span>
               </div>
             </div>
 
             <div className="px-5 py-3">
-              <div className="rounded-lg border border-zinc-800/40 bg-zinc-950 p-2">
+              <div className="rounded-lg border border-slate-200/50 bg-white p-2">
                 <HrChart />
               </div>
 
@@ -618,15 +663,15 @@ export function LiveMonitor() {
           </section>
 
           {/* Audio Dashcam Card */}
-          <section className="overflow-hidden rounded-xl border border-zinc-800/60 bg-zinc-900/50">
-            <div className="border-b border-zinc-800/60 px-5 py-3">
+          <section className="overflow-hidden rounded-xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm">
+            <div className="border-b border-slate-200/50 px-5 py-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="inline-block h-2 w-2 rounded-full bg-rose-500" style={{ animation: "subtlePulse 1.5s infinite" }} />
-                  <span className="text-[10px] font-medium uppercase tracking-wider text-zinc-400">Audio Dashcam</span>
+                  <span className="text-[10px] font-medium uppercase tracking-wider text-slate-600">Audio Dashcam</span>
                   <span className="rounded bg-rose-500/15 px-1.5 py-0.5 text-[10px] font-medium text-rose-400">REC</span>
                 </div>
-                <span className="font-mono text-sm font-semibold tabular-nums text-zinc-400">
+                <span className="font-mono text-sm font-semibold tabular-nums text-slate-600">
                   {fmtCountdown(countdown)}
                 </span>
               </div>
@@ -637,9 +682,9 @@ export function LiveMonitor() {
                 ref={canvasRef}
                 width={800}
                 height={100}
-                className="h-16 w-full rounded-lg border border-zinc-800/40"
+                className="h-16 w-full rounded-lg border border-slate-200/50 bg-white"
               />
-              <p className="mt-2 text-[10px] text-zinc-600">
+              <p className="mt-2 text-[10px] text-slate-700">
                 {AUDIO_CHUNK_SEC}s rolling chunks — transcribed and analyzed automatically
               </p>
             </div>
@@ -655,18 +700,17 @@ export function LiveMonitor() {
 
       {/* ── Trigger Buttons ─────────────────────────── */}
       {active && (
-        <section className="rounded-xl border border-zinc-800/60 bg-zinc-900/50 px-6 py-5">
-          <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+        <section className="rounded-xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm px-6 py-5">
+          <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-slate-500">
             Simulate Events
           </h3>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={toggleSpike}
-              className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-medium transition-all active:scale-[0.97] ${
-                spiking
-                  ? "bg-rose-500 text-white hover:bg-rose-400"
-                  : "border border-zinc-700 bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
-              }`}
+              className={`flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-medium transition-all active:scale-[0.97] ${spiking
+                ? "bg-rose-500 text-white hover:bg-rose-400"
+                : "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                }`}
             >
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -677,7 +721,7 @@ export function LiveMonitor() {
             <button
               onClick={triggerFall}
               disabled={fallBusy}
-              className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-xs font-medium text-zinc-300 transition-all hover:bg-zinc-700 active:scale-[0.97] disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-xs font-medium text-slate-700 transition-all hover:bg-slate-50 active:scale-[0.97] disabled:opacity-50"
             >
               <svg className="h-3.5 w-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
@@ -686,7 +730,7 @@ export function LiveMonitor() {
             </button>
           </div>
 
-          <p className="mt-2 text-[10px] text-zinc-600">
+          <p className="mt-2 text-[10px] text-slate-700">
             Panic spike simulates sustained elevated heart rate. Fall detection creates an immediate incident with AI analysis.
             Audio monitoring runs automatically via the dashcam.
           </p>
@@ -695,8 +739,8 @@ export function LiveMonitor() {
 
       {/* ── Pipeline Progress (fall trigger) ─────────── */}
       {pipelineSteps.length > 0 && (
-        <section className="rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-5">
-          <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+        <section className="rounded-xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm p-5">
+          <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-slate-500">
             Pipeline
           </h3>
           {pipelineError && (
@@ -720,11 +764,11 @@ export function LiveMonitor() {
                   </span>
                 )}
                 {step.status === "pending" && (
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-800/60">
-                    <span className="h-1.5 w-1.5 rounded-full bg-zinc-600" />
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-100">
+                    <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
                   </span>
                 )}
-                <span className={`text-xs ${step.status === "done" ? "text-zinc-400" : step.status === "active" ? "font-medium text-emerald-400" : "text-zinc-600"}`}>
+                <span className={`text-xs ${step.status === "done" ? "text-slate-600" : step.status === "active" ? "font-medium text-emerald-400" : "text-slate-700"}`}>
                   {step.text}
                 </span>
               </div>
@@ -739,12 +783,12 @@ export function LiveMonitor() {
               </span>
               <div className="text-xs">
                 <span className="font-medium text-emerald-400">{pipelineResult.label}</span>{" "}
-                <span className="text-zinc-500">incident analyzed</span>
+                <span className="text-slate-500">incident analyzed</span>
                 <div className="mt-1 flex gap-3">
-                  <a href={`/events/${pipelineResult.incidentId}`} className="font-medium text-zinc-300 underline underline-offset-2 hover:text-zinc-100">
+                  <a href={`/events/${pipelineResult.incidentId}`} className="font-medium text-slate-600 underline underline-offset-2 hover:text-slate-800">
                     View Detail
                   </a>
-                  <a href="/dashboard" className="font-medium text-zinc-300 underline underline-offset-2 hover:text-zinc-100">
+                  <a href="/dashboard" className="font-medium text-slate-600 underline underline-offset-2 hover:text-slate-800">
                     Dashboard
                   </a>
                 </div>
@@ -756,13 +800,13 @@ export function LiveMonitor() {
 
       {/* ── Audio Scan History ───────────────────────── */}
       {cycleLogs.length > 0 && (
-        <section className="rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-5">
-          <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+        <section className="rounded-xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm p-5">
+          <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-slate-500">
             Audio Scan History
           </h3>
           <div className="space-y-2">
             {cycleLogs.map((log) => (
-              <div key={log.id} className="flex items-start gap-3 rounded-lg border border-zinc-800/40 bg-zinc-950/60 p-3">
+              <div key={log.id} className="flex items-start gap-3 rounded-lg border border-slate-200 bg-white/80 p-3">
                 {log.status === "recording" && (
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-rose-500/10">
                     <span className="h-2 w-2 rounded-full bg-rose-400" style={{ animation: "subtlePulse 1s infinite" }} />
@@ -795,17 +839,17 @@ export function LiveMonitor() {
                     <>
                       <span className="font-medium text-rose-400">Alert — {log.severity}</span>
                       {log.incidentId && (
-                        <a href={`/events/${log.incidentId}`} className="ml-2 text-zinc-400 underline underline-offset-2 hover:text-zinc-200">
+                        <a href={`/events/${log.incidentId}`} className="ml-2 text-slate-500 underline underline-offset-2 hover:text-slate-700">
                           View
                         </a>
                       )}
-                      {log.transcript && <p className="mt-1 truncate text-zinc-500">&ldquo;{log.transcript}&rdquo;</p>}
+                      {log.transcript && <p className="mt-1 truncate text-slate-500">&ldquo;{log.transcript}&rdquo;</p>}
                     </>
                   )}
                   {log.status === "done" && log.result === "skip" && (
                     <>
-                      <span className="text-zinc-500">Chunk #{log.id} — clear{log.error && ` (${log.error})`}</span>
-                      {log.transcript && <p className="mt-0.5 truncate text-zinc-600">&ldquo;{log.transcript}&rdquo;</p>}
+                      <span className="text-slate-500">Chunk #{log.id} — clear{log.error && ` (${log.error})`}</span>
+                      {log.transcript && <p className="mt-0.5 truncate text-slate-700">&ldquo;{log.transcript}&rdquo;</p>}
                     </>
                   )}
                 </div>
@@ -817,13 +861,13 @@ export function LiveMonitor() {
 
       {/* ── Event Feed ──────────────────────────────── */}
       {eventLog.length > 0 && (
-        <section className="rounded-xl border border-zinc-800/60 bg-zinc-900/40 p-5">
-          <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+        <section className="rounded-xl border border-white/50 bg-white/40 backdrop-blur-md shadow-sm p-5">
+          <h3 className="mb-3 text-[10px] font-medium uppercase tracking-wider text-slate-500">
             Incident Feed
           </h3>
           <div className="space-y-2">
             {eventLog.map((ev) => (
-              <div key={ev.id} className="flex items-center gap-3 rounded-lg border border-zinc-800/40 bg-zinc-950/60 px-4 py-2.5">
+              <div key={ev.id} className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white/80 px-4 py-2.5">
                 {ev.type === "hr_incident" && (
                   <svg className="h-3.5 w-3.5 shrink-0 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -840,25 +884,24 @@ export function LiveMonitor() {
                   </svg>
                 )}
                 <div className="min-w-0 flex-1 text-xs">
-                  <span className="text-zinc-300">{ev.label}</span>
+                  <span className="text-slate-700 font-medium">{ev.label}</span>
                   {ev.severity && (
-                    <span className={`ml-2 rounded px-1.5 py-0.5 text-[10px] font-medium ${
-                      ev.severity === "critical" || ev.severity === "high"
-                        ? "bg-rose-500/15 text-rose-400"
-                        : ev.severity === "medium"
-                          ? "bg-amber-500/15 text-amber-400"
-                          : "bg-zinc-800 text-zinc-500"
-                    }`}>
+                    <span className={`ml-2 rounded px-1.5 py-0.5 text-[10px] font-medium ${ev.severity === "critical" || ev.severity === "high"
+                      ? "bg-rose-500/15 text-rose-400"
+                      : ev.severity === "medium"
+                        ? "bg-amber-500/15 text-amber-400"
+                        : "bg-slate-100/50 text-slate-500"
+                      }`}>
                       {ev.severity}
                     </span>
                   )}
                   {ev.incidentId && (
-                    <a href={`/events/${ev.incidentId}`} className="ml-2 text-zinc-500 underline underline-offset-2 hover:text-zinc-300">
+                    <a href={`/events/${ev.incidentId}`} className="ml-2 text-slate-500 underline underline-offset-2 hover:text-slate-700">
                       View
                     </a>
                   )}
                 </div>
-                <span className="shrink-0 text-[10px] tabular-nums text-zinc-600">{ev.time}</span>
+                <span className="shrink-0 text-[10px] tabular-nums text-slate-700">{ev.time}</span>
               </div>
             ))}
           </div>
@@ -867,12 +910,12 @@ export function LiveMonitor() {
 
       {/* ── Idle State ──────────────────────────────── */}
       {!active && eventLog.length === 0 && (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-zinc-800/60 py-16 text-center">
-          <svg className="mb-4 h-10 w-10 text-zinc-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 py-16 text-center">
+          <svg className="mb-4 h-10 w-10 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
           </svg>
-          <p className="text-sm text-zinc-500">Press <span className="font-semibold text-emerald-400">Start</span> to begin monitoring</p>
-          <p className="mt-1 text-xs text-zinc-600">
+          <p className="text-sm text-slate-500">Press <span className="font-semibold text-emerald-400">Start</span> to begin monitoring</p>
+          <p className="mt-1 text-xs text-slate-700">
             Heart rate tracking, audio dashcam, and incident detection will activate simultaneously
           </p>
         </div>

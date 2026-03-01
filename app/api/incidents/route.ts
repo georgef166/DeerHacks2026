@@ -10,13 +10,22 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json().catch(() => ({}));
-    const { event_type, sensor_data, audio_base64, audio_content_type } = body;
+    const { event_type, sensor_data, audio_base64, audio_content_type, reported_lat, reported_lng, reported_address } = body;
 
     if (!event_type || !sensor_data) {
       return NextResponse.json(
         { error: "event_type and sensor_data are required" },
         { status: 400 }
       );
+    }
+
+    const sensorDataWithLocation = { ...sensor_data };
+    if (typeof reported_lat === "number" && typeof reported_lng === "number") {
+      (sensorDataWithLocation as Record<string, unknown>).reported_location = {
+        lat: reported_lat,
+        lng: reported_lng,
+        ...(reported_address && { address: reported_address }),
+      };
     }
 
     const userId = session.user.id;
@@ -44,7 +53,7 @@ export async function POST(req: Request) {
         id: incidentId,
         user_id: userId,
         event_type,
-        sensor_data,
+        sensor_data: sensorDataWithLocation,
         audio_url: audioUrl,
         status: "pending",
         is_simulation: true,

@@ -1,7 +1,7 @@
 import type { AnalysisResult, SensorData } from "./types";
 
-const VULTR_MODEL = "mistral";
-const VULTR_TIMEOUT_MS = 30_000;
+const VULTR_MODEL = "emsi/mixtral-8x22b";
+const VULTR_TIMEOUT_MS = 60_000;
 
 const SYSTEM_PROMPT = `You are a child safety AI. Analyze sensor data and audio transcripts from a child's wearable device.
 
