@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "C:\\Users\\taimo\\.gradle\\daemon\\9.1.0\\com.rockycompanion.watch.app-mergeDebugResources-32:\\layout\\activity_demo.xml",
+        "source": "C:\\Users\\taimo\\.gradle\\daemon\\9.1.0\\com.rockycompanion.watch.app-main-35:\\layout\\activity_demo.xml"
+    },
+    {
+        "merged": "C:\\Users\\taimo\\.gradle\\daemon\\9.1.0\\com.rockycompanion.watch.app-mergeDebugResources-32:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\taimo\\.gradle\\daemon\\9.1.0\\com.rockycompanion.watch.app-main-35:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "com.rockycompanion.watch.app-mergeDebugResources-32:/layout/activity_monitoring.xml",
+        "source": "com.rockycompanion.watch.app-main-35:/layout/activity_monitoring.xml"
+    },
+    {
+        "merged": "C:\\Users\\taimo\\.gradle\\daemon\\9.1.0\\com.rockycompanion.watch.app-mergeDebugResources-32:\\layout\\activity_settings.xml",
+        "source": "C:\\Users\\taimo\\.gradle\\daemon\\9.1.0\\com.rockycompanion.watch.app-main-35:\\layout\\activity_settings.xml"
+    },
+    {
+        "merged": "com.rockycompanion.watch.app-mergeDebugResources-32:/layout/activity_main.xml",
+        "source": "com.rockycompanion.watch.app-main-35:/layout/activity_main.xml"
+    }
+]

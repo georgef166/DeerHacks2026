@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paper background — matches web #fdfaf6 -->
+    <color name="rocky_bg">#FDFAF6</color>
+    <color name="rocky_white">#FFFFFF</color>
+
+    <!-- Slate text scale — matches web Tailwind slate palette -->
+    <color name="rocky_slate_800">#1E293B</color>
+    <color name="rocky_slate_600">#475569</color>
+    <color name="rocky_slate_400">#94A3B8</color>
+    <color name="rocky_slate_200">#E2E8F0</color>
+    <color name="rocky_slate_100">#F1F5F9</color>
+
+    <!-- Emerald — Rocky happy, primary action (#d1fae5 / #065f46 / #10b981) -->
+    <color name="rocky_emerald">#10B981</color>
+    <color name="rocky_emerald_light">#D1FAE5</color>
+    <color name="rocky_emerald_dark">#065F46</color>
+
+    <!-- Amber — Rocky concerned, elevated heart rate (#fef3c7 / #854d0e / #f59e0b) -->
+    <color name="rocky_amber">#F59E0B</color>
+    <color name="rocky_amber_light">#FEF3C7</color>
+    <color name="rocky_amber_dark">#854D0E</color>
+
+    <!-- Purple — Rocky normal (#a855f7) -->
+    <color name="rocky_purple">#A855F7</color>
+
+    <!-- Blue — Rocky sleepy / secondary action (#e0f2fe / #075985 / #3b82f6) -->
+    <color name="rocky_blue">#3B82F6</color>
+    <color name="rocky_blue_light">#E0F2FE</color>
+    <color name="rocky_blue_dark">#075985</color>
+
+    <!-- Rose — "Heart Rate Monitoring" feature pill (#ffe4e6 / #9f1239 / #fecdd3) -->
+    <color name="rocky_rose_light">#FFE4E6</color>
+    <color name="rocky_rose_dark">#9F1239</color>
+    <color name="rocky_rose_border">#FECDD3</color>
+
+    <!-- Yellow — "Fall Detection" feature pill (#fef08a / #854d0e / #fde047) -->
+    <color name="rocky_yellow_light">#FEF08A</color>
+    <color name="rocky_yellow_border">#FDE047</color>
+
+    <!-- Purple light — "AI Insights" feature pill (#f3e8ff / #581c87 / #e9d5ff) -->
+    <color name="rocky_purple_light">#F3E8FF</color>
+    <color name="rocky_purple_dark">#581C87</color>
+    <color name="rocky_purple_border">#E9D5FF</color>
+</resources>

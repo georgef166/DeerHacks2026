@@ -1,0 +1,9 @@
+<!-- Rose pill — matches web "Heart Rate Monitoring" feature pill (#ffe4e6 / #9f1239) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/rocky_rose_light" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/rocky_rose_border" />
+    <corners android:radius="100dp" />
+</shape>

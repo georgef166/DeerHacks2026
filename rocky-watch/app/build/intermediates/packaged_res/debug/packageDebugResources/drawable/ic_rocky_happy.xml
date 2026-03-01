@@ -1,0 +1,36 @@
+<!-- Rocky mascot — happy mood (emerald green, arc eyes, big smile). Matches web Rocky.tsx happy variant. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <!-- Rounded square body (rx=20) -->
+    <path
+        android:fillColor="@color/rocky_emerald"
+        android:pathData="M20,0 L44,0 Q64,0 64,20 L64,44 Q64,64 44,64 L20,64 Q0,64 0,44 L0,20 Q0,0 20,0 Z" />
+
+    <!-- Left eye arc (happy ^) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/rocky_white"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M18,28 Q22,24 26,28" />
+
+    <!-- Right eye arc (happy ^) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/rocky_white"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M38,28 Q42,24 46,28" />
+
+    <!-- Mouth (big smile) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/rocky_white"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M28,36 Q32,40 36,36" />
+</vector>

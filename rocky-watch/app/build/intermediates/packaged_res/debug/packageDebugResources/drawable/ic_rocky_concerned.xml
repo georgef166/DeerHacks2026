@@ -1,0 +1,46 @@
+<!-- Rocky mascot — concerned mood (amber, dot eyes + worried brows, frown). Matches web Rocky.tsx concerned variant. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <!-- Rounded square body (rx=20) -->
+    <path
+        android:fillColor="@color/rocky_amber"
+        android:pathData="M20,0 L44,0 Q64,0 64,20 L64,44 Q64,64 44,64 L20,64 Q0,64 0,44 L0,20 Q0,0 20,0 Z" />
+
+    <!-- Left eye (filled circle at 22,28 r=3) -->
+    <path
+        android:fillColor="@color/rocky_white"
+        android:pathData="M22,28 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0" />
+
+    <!-- Right eye (filled circle at 42,28 r=3) -->
+    <path
+        android:fillColor="@color/rocky_white"
+        android:pathData="M42,28 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0" />
+
+    <!-- Left brow (worried, angled inward) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/rocky_white"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M18,24 L26,26" />
+
+    <!-- Right brow (worried, angled inward) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/rocky_white"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M38,26 L46,24" />
+
+    <!-- Mouth (frown) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/rocky_white"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M28,38 Q32,34 36,38" />
+</vector>

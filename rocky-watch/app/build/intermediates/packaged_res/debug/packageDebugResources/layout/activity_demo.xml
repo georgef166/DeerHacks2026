@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Demo screen — styled like the web app's "How it works" section.
+  Three trigger buttons matching the web feature pills:
+    Rose   → High Heart Rate  (#ffe4e6 / #9f1239)
+    Yellow → Fall Detected    (#fef08a / #854d0e)
+    Purple → Audio Alert      (#f3e8ff / #581c87)
+  Status chip below updates after each tap.
+-->
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rocky_bg">
+
+    <androidx.wear.widget.WearableScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:boxedEdges="all">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp">
+
+            <!-- Rocky mascot — concerned mood to set "simulation" context -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_rocky_concerned"
+                android:contentDescription="@string/demo_title" />
+
+            <!-- "Simulate" title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/demo_title"
+                android:textColor="@color/rocky_slate_800"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <!-- Status chip — updates after each trigger -->
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="@string/demo_ready"
+                android:textColor="@color/rocky_slate_400"
+                android:textSize="9sp" />
+
+            <!-- ❤ High Heart Rate — rose pill -->
+            <Button
+                android:id="@+id/heartRateButton"
+                android:layout_width="150dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_rose"
+                android:stateListAnimator="@null"
+                android:text="@string/demo_hr_button"
+                android:textAllCaps="false"
+                android:textColor="@color/rocky_rose_dark"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <!-- ⚡ Fall Detected — amber pill -->
+            <Button
+                android:id="@+id/fallButton"
+                android:layout_width="150dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button_amber_fill"
+                android:stateListAnimator="@null"
+                android:text="@string/demo_fall_button"
+                android:textAllCaps="false"
+                android:textColor="@color/rocky_amber_dark"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <!-- 🔊 Audio Alert — purple pill -->
+            <Button
+                android:id="@+id/audioButton"
+                android:layout_width="150dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_button_purple"
+                android:stateListAnimator="@null"
+                android:text="@string/demo_audio_button"
+                android:textAllCaps="false"
+                android:textColor="@color/rocky_purple_dark"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </androidx.wear.widget.WearableScrollView>
+</androidx.wear.widget.BoxInsetLayout>

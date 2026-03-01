@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rocky_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:boxedEdges="all">
+
+        <ImageView
+            android:id="@+id/rockyImage"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_rocky_happy"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@string/rec_recording"
+            android:textColor="@color/rocky_slate_600"
+            android:textSize="9sp" />
+
+        <Button
+            android:id="@+id/heartRateButton"
+            android:layout_width="148dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_button_rose"
+            android:stateListAnimator="@null"
+            android:text="@string/rec_hr_button"
+            android:textAllCaps="false"
+            android:textColor="@color/rocky_rose_dark"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/fallButton"
+            android:layout_width="148dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_button_amber_fill"
+            android:stateListAnimator="@null"
+            android:text="@string/rec_fall_button"
+            android:textAllCaps="false"
+            android:textColor="@color/rocky_amber_dark"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/stopButton"
+            android:layout_width="148dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_button_secondary"
+            android:stateListAnimator="@null"
+            android:text="@string/rec_stop_button"
+            android:textAllCaps="false"
+            android:textColor="@color/rocky_slate_600"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</androidx.wear.widget.BoxInsetLayout>

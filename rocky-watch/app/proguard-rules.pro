@@ -1,0 +1,5 @@
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.rockycompanion.watch.** { *; }
+-dontwarn okhttp3.**
+-dontwarn retrofit2.**

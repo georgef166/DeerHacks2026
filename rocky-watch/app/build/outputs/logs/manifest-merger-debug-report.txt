@@ -1,0 +1,400 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:2:1-47:12
+MERGED from [androidx.databinding:viewbinding:8.9.3] C:\Users\taimo\.gradle\caches\9.1.0\transforms\7535e09208acce5aee3fd818dd1fe377\workspace\transformed\viewbinding-8.9.3\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.wear:wear:1.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\400513632ac75098c4ad60f6f16abc7a\workspace\transformed\wear-1.3.0\AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.wear:wear-ongoing:1.1.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f9de8c1503a18b85eecb4f0b98785a0d\workspace\transformed\wear-ongoing-1.1.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:14:1-34:12
+MERGED from [com.google.android.gms:play-services-wearable:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c04d177ffcc302ce7296a877c9b6979a\workspace\transformed\play-services-wearable-18.2.0\AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\9b9b921e66f3e2e65e2faed4a13c8f6e\workspace\transformed\play-services-location-21.3.0\AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\46965155f10a37b7aa0d89097c4cace3\workspace\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\a02d5b16f54eee41c8d33aaf914b286f\workspace\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\25f603e6a8a7f03fd1b7b81309092752\workspace\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\853dfbec30fbd4bedd280d5a011a7d61\workspace\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\03cb28c6ee97da7bcf505bd9f6a786b8\workspace\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5432edb73dc894fb4997397a2b35808d\workspace\transformed\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\21c874b824efceb6885a304d25a6a9d3\workspace\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.activity:activity-ktx:1.12.4] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5adf302c260fa7c7a0cb88bd09ded06f\workspace\transformed\activity-ktx-1.12.4\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity:1.12.4] C:\Users\taimo\.gradle\caches\9.1.0\transforms\4d6643da0b4bdb8966fa55d3f762f421\workspace\transformed\activity-1.12.4\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\147067aa5c984711e539148c93c53f27\workspace\transformed\lifecycle-livedata-2.6.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\49c545b0053eedce039232f2da3b437a\workspace\transformed\lifecycle-viewmodel-savedstate-2.6.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\6207948ac406748c8b7c7d7a367453c8\workspace\transformed\lifecycle-viewmodel-ktx-2.6.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\22298ade014b8586264958576bb57e1d\workspace\transformed\lifecycle-viewmodel-2.6.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\a5ad2d99b4ebbe10936fcacfed6b2606\workspace\transformed\lifecycle-runtime-ktx-2.6.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\513a1af46539a37b7f9aa615e6c83984\workspace\transformed\lifecycle-livedata-core-ktx-2.6.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\ac76870c0ef1ecb10514d610908295e2\workspace\transformed\lifecycle-livedata-core-2.6.2\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\51629be1f8dc16b34789d58231c38ae9\workspace\transformed\lifecycle-runtime-2.6.2\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f7326b9dbe56038333fd3dc1c46946db\workspace\transformed\savedstate-ktx-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\253db685ed162972e247e180a36447ce\workspace\transformed\savedstate-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigationevent:navigationevent-android:1.0.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\99e8564cce72fe285eb33d1397e4326a\workspace\transformed\navigationevent\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\307c7f540a0ffe4d6ac9d83f5fe6e62a\workspace\transformed\play-services-tasks-18.2.0\AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5bc88eec19363b969722f6b4df4b3ba0\workspace\transformed\play-services-basement-18.4.0\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.fragment:fragment:1.8.9] C:\Users\taimo\.gradle\caches\9.1.0\transforms\466f36c85f2687e8d0bf8b1d54f82c12\workspace\transformed\fragment-1.8.9\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.fragment:fragment-ktx:1.8.9] C:\Users\taimo\.gradle\caches\9.1.0\transforms\0d45147167fe533d1c165a74dcd3ba19\workspace\transformed\fragment-ktx-1.8.9\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core-ktx:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f2cbbab3e8df378a096266d1d180a57c\workspace\transformed\core-ktx-1.17.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\44d00063909efe7ee5d467f01e50fae6\workspace\transformed\annotation-experimental-1.4.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\4322e1649c85bf471f2ef96001966272\workspace\transformed\core-viewtree-1.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\295a81bd50b492590d6b6b892d7d1307\workspace\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5767b9cdb1909a56413ff6ee51667b06\workspace\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\fa5010538e5451a01a6b8b654d450566\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\33833b550abdd492c92f5285960bb18b\workspace\transformed\tracing-1.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\1b31dab6123ffd723e21f059e56cfead\workspace\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\35502ceaab683a73d9d3c1a86daf6523\workspace\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\197b41f70f0047ba64bf6211911d6906\workspace\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\e5f4e4c33c44dac802c7b0b8910898eb\workspace\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.runtime:runtime-annotation-android:1.9.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\ca0db926a6d8f29ab8b288c0fd4e8737\workspace\transformed\runtime-annotation\AndroidManifest.xml:2:1-7:12
+	package
+		INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.BODY_SENSORS
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:4:5-71
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:4:22-68
+uses-permission#android.permission.ACTIVITY_RECOGNITION
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:5:5-79
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:5:22-76
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:6:5-77
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:6:22-74
+uses-permission#android.permission.FOREGROUND_SERVICE_HEALTH
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:7:5-84
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:7:22-81
+uses-permission#android.permission.FOREGROUND_SERVICE_LOCATION
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:8:5-86
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:8:22-83
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:9:5-79
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:9:22-76
+uses-permission#android.permission.INTERNET
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:10:5-67
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:10:22-64
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:11:5-71
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:11:22-68
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:12:5-77
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:12:22-74
+uses-feature#android.hardware.type.watch
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:14:5-88
+	android:required
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:14:62-85
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:14:19-61
+application
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:16:5-46:19
+INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:16:5-46:19
+MERGED from [androidx.wear:wear:1.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\400513632ac75098c4ad60f6f16abc7a\workspace\transformed\wear-1.3.0\AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.wear:wear:1.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\400513632ac75098c4ad60f6f16abc7a\workspace\transformed\wear-1.3.0\AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:23:5-32:19
+MERGED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:23:5-32:19
+MERGED from [com.google.android.gms:play-services-wearable:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c04d177ffcc302ce7296a877c9b6979a\workspace\transformed\play-services-wearable-18.2.0\AndroidManifest.xml:6:5-20
+MERGED from [com.google.android.gms:play-services-wearable:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c04d177ffcc302ce7296a877c9b6979a\workspace\transformed\play-services-wearable-18.2.0\AndroidManifest.xml:6:5-20
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\9b9b921e66f3e2e65e2faed4a13c8f6e\workspace\transformed\play-services-location-21.3.0\AndroidManifest.xml:6:5-20
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\9b9b921e66f3e2e65e2faed4a13c8f6e\workspace\transformed\play-services-location-21.3.0\AndroidManifest.xml:6:5-20
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:4:5-6:19
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:4:5-6:19
+MERGED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:28:5-89
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\307c7f540a0ffe4d6ac9d83f5fe6e62a\workspace\transformed\play-services-tasks-18.2.0\AndroidManifest.xml:4:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\307c7f540a0ffe4d6ac9d83f5fe6e62a\workspace\transformed\play-services-tasks-18.2.0\AndroidManifest.xml:4:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5bc88eec19363b969722f6b4df4b3ba0\workspace\transformed\play-services-basement-18.4.0\AndroidManifest.xml:5:5-7:19
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5bc88eec19363b969722f6b4df4b3ba0\workspace\transformed\play-services-basement-18.4.0\AndroidManifest.xml:5:5-7:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\295a81bd50b492590d6b6b892d7d1307\workspace\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\295a81bd50b492590d6b6b892d7d1307\workspace\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\fa5010538e5451a01a6b8b654d450566\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\fa5010538e5451a01a6b8b654d450566\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+	android:extractNativeLibs
+		INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:22:9-35
+	android:label
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:20:9-41
+	android:roundIcon
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:21:9-63
+	android:icon
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:19:9-58
+	android:allowBackup
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:18:9-35
+	android:theme
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:23:9-59
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:17:9-38
+activity#com.rockycompanion.watch.MainActivity
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:24:9-32:20
+	android:exported
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:26:13-36
+	android:theme
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:27:13-63
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:25:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:28:13-31:29
+action#android.intent.action.MAIN
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:29:17-69
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:29:25-66
+category#android.intent.category.LAUNCHER
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:30:17-77
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:30:27-74
+activity#com.rockycompanion.watch.SettingsActivity
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:33:9-36:66
+	android:exported
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:35:13-37
+	android:theme
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:36:13-63
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:34:13-45
+activity#com.rockycompanion.watch.MonitoringActivity
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:37:9-40:66
+	android:exported
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:39:13-37
+	android:theme
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:40:13-63
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:38:13-47
+service#com.rockycompanion.watch.MonitorService
+ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:41:9-45:63
+	android:enabled
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:43:13-35
+	android:exported
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:44:13-37
+	android:foregroundServiceType
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:45:13-60
+	android:name
+		ADDED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml:42:13-43
+uses-sdk
+INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml
+INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml
+MERGED from [androidx.databinding:viewbinding:8.9.3] C:\Users\taimo\.gradle\caches\9.1.0\transforms\7535e09208acce5aee3fd818dd1fe377\workspace\transformed\viewbinding-8.9.3\AndroidManifest.xml:5:5-44
+MERGED from [androidx.databinding:viewbinding:8.9.3] C:\Users\taimo\.gradle\caches\9.1.0\transforms\7535e09208acce5aee3fd818dd1fe377\workspace\transformed\viewbinding-8.9.3\AndroidManifest.xml:5:5-44
+MERGED from [androidx.wear:wear:1.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\400513632ac75098c4ad60f6f16abc7a\workspace\transformed\wear-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.wear:wear:1.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\400513632ac75098c4ad60f6f16abc7a\workspace\transformed\wear-1.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.wear:wear-ongoing:1.1.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f9de8c1503a18b85eecb4f0b98785a0d\workspace\transformed\wear-ongoing-1.1.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.wear:wear-ongoing:1.1.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f9de8c1503a18b85eecb4f0b98785a0d\workspace\transformed\wear-ongoing-1.1.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:17:5-44
+MERGED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:17:5-44
+MERGED from [com.google.android.gms:play-services-wearable:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c04d177ffcc302ce7296a877c9b6979a\workspace\transformed\play-services-wearable-18.2.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.gms:play-services-wearable:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c04d177ffcc302ce7296a877c9b6979a\workspace\transformed\play-services-wearable-18.2.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\9b9b921e66f3e2e65e2faed4a13c8f6e\workspace\transformed\play-services-location-21.3.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.gms:play-services-location:21.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\9b9b921e66f3e2e65e2faed4a13c8f6e\workspace\transformed\play-services-location-21.3.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:3:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\46965155f10a37b7aa0d89097c4cace3\workspace\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\46965155f10a37b7aa0d89097c4cace3\workspace\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\a02d5b16f54eee41c8d33aaf914b286f\workspace\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\a02d5b16f54eee41c8d33aaf914b286f\workspace\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\25f603e6a8a7f03fd1b7b81309092752\workspace\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\25f603e6a8a7f03fd1b7b81309092752\workspace\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\853dfbec30fbd4bedd280d5a011a7d61\workspace\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\853dfbec30fbd4bedd280d5a011a7d61\workspace\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\03cb28c6ee97da7bcf505bd9f6a786b8\workspace\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\03cb28c6ee97da7bcf505bd9f6a786b8\workspace\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5432edb73dc894fb4997397a2b35808d\workspace\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5432edb73dc894fb4997397a2b35808d\workspace\transformed\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\21c874b824efceb6885a304d25a6a9d3\workspace\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\21c874b824efceb6885a304d25a6a9d3\workspace\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-ktx:1.12.4] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5adf302c260fa7c7a0cb88bd09ded06f\workspace\transformed\activity-ktx-1.12.4\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.12.4] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5adf302c260fa7c7a0cb88bd09ded06f\workspace\transformed\activity-ktx-1.12.4\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity:1.12.4] C:\Users\taimo\.gradle\caches\9.1.0\transforms\4d6643da0b4bdb8966fa55d3f762f421\workspace\transformed\activity-1.12.4\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.12.4] C:\Users\taimo\.gradle\caches\9.1.0\transforms\4d6643da0b4bdb8966fa55d3f762f421\workspace\transformed\activity-1.12.4\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\147067aa5c984711e539148c93c53f27\workspace\transformed\lifecycle-livedata-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\147067aa5c984711e539148c93c53f27\workspace\transformed\lifecycle-livedata-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\49c545b0053eedce039232f2da3b437a\workspace\transformed\lifecycle-viewmodel-savedstate-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\49c545b0053eedce039232f2da3b437a\workspace\transformed\lifecycle-viewmodel-savedstate-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\6207948ac406748c8b7c7d7a367453c8\workspace\transformed\lifecycle-viewmodel-ktx-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\6207948ac406748c8b7c7d7a367453c8\workspace\transformed\lifecycle-viewmodel-ktx-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\22298ade014b8586264958576bb57e1d\workspace\transformed\lifecycle-viewmodel-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\22298ade014b8586264958576bb57e1d\workspace\transformed\lifecycle-viewmodel-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\a5ad2d99b4ebbe10936fcacfed6b2606\workspace\transformed\lifecycle-runtime-ktx-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\a5ad2d99b4ebbe10936fcacfed6b2606\workspace\transformed\lifecycle-runtime-ktx-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\513a1af46539a37b7f9aa615e6c83984\workspace\transformed\lifecycle-livedata-core-ktx-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\513a1af46539a37b7f9aa615e6c83984\workspace\transformed\lifecycle-livedata-core-ktx-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\ac76870c0ef1ecb10514d610908295e2\workspace\transformed\lifecycle-livedata-core-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\ac76870c0ef1ecb10514d610908295e2\workspace\transformed\lifecycle-livedata-core-2.6.2\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\51629be1f8dc16b34789d58231c38ae9\workspace\transformed\lifecycle-runtime-2.6.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.6.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\51629be1f8dc16b34789d58231c38ae9\workspace\transformed\lifecycle-runtime-2.6.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f7326b9dbe56038333fd3dc1c46946db\workspace\transformed\savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f7326b9dbe56038333fd3dc1c46946db\workspace\transformed\savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\253db685ed162972e247e180a36447ce\workspace\transformed\savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\253db685ed162972e247e180a36447ce\workspace\transformed\savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigationevent:navigationevent-android:1.0.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\99e8564cce72fe285eb33d1397e4326a\workspace\transformed\navigationevent\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigationevent:navigationevent-android:1.0.2] C:\Users\taimo\.gradle\caches\9.1.0\transforms\99e8564cce72fe285eb33d1397e4326a\workspace\transformed\navigationevent\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\307c7f540a0ffe4d6ac9d83f5fe6e62a\workspace\transformed\play-services-tasks-18.2.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\307c7f540a0ffe4d6ac9d83f5fe6e62a\workspace\transformed\play-services-tasks-18.2.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5bc88eec19363b969722f6b4df4b3ba0\workspace\transformed\play-services-basement-18.4.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5bc88eec19363b969722f6b4df4b3ba0\workspace\transformed\play-services-basement-18.4.0\AndroidManifest.xml:3:5-44
+MERGED from [androidx.fragment:fragment:1.8.9] C:\Users\taimo\.gradle\caches\9.1.0\transforms\466f36c85f2687e8d0bf8b1d54f82c12\workspace\transformed\fragment-1.8.9\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment:1.8.9] C:\Users\taimo\.gradle\caches\9.1.0\transforms\466f36c85f2687e8d0bf8b1d54f82c12\workspace\transformed\fragment-1.8.9\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.8.9] C:\Users\taimo\.gradle\caches\9.1.0\transforms\0d45147167fe533d1c165a74dcd3ba19\workspace\transformed\fragment-ktx-1.8.9\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.8.9] C:\Users\taimo\.gradle\caches\9.1.0\transforms\0d45147167fe533d1c165a74dcd3ba19\workspace\transformed\fragment-ktx-1.8.9\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f2cbbab3e8df378a096266d1d180a57c\workspace\transformed\core-ktx-1.17.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\f2cbbab3e8df378a096266d1d180a57c\workspace\transformed\core-ktx-1.17.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\44d00063909efe7ee5d467f01e50fae6\workspace\transformed\annotation-experimental-1.4.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\44d00063909efe7ee5d467f01e50fae6\workspace\transformed\annotation-experimental-1.4.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\4322e1649c85bf471f2ef96001966272\workspace\transformed\core-viewtree-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\4322e1649c85bf471f2ef96001966272\workspace\transformed\core-viewtree-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\295a81bd50b492590d6b6b892d7d1307\workspace\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\295a81bd50b492590d6b6b892d7d1307\workspace\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5767b9cdb1909a56413ff6ee51667b06\workspace\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5767b9cdb1909a56413ff6ee51667b06\workspace\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\fa5010538e5451a01a6b8b654d450566\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\fa5010538e5451a01a6b8b654d450566\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\33833b550abdd492c92f5285960bb18b\workspace\transformed\tracing-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\33833b550abdd492c92f5285960bb18b\workspace\transformed\tracing-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\1b31dab6123ffd723e21f059e56cfead\workspace\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\1b31dab6123ffd723e21f059e56cfead\workspace\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\35502ceaab683a73d9d3c1a86daf6523\workspace\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\35502ceaab683a73d9d3c1a86daf6523\workspace\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\197b41f70f0047ba64bf6211911d6906\workspace\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\197b41f70f0047ba64bf6211911d6906\workspace\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\e5f4e4c33c44dac802c7b0b8910898eb\workspace\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\e5f4e4c33c44dac802c7b0b8910898eb\workspace\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.runtime:runtime-annotation-android:1.9.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\ca0db926a6d8f29ab8b288c0fd4e8737\workspace\transformed\runtime-annotation\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-annotation-android:1.9.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\ca0db926a6d8f29ab8b288c0fd4e8737\workspace\transformed\runtime-annotation\AndroidManifest.xml:5:5-44
+	android:targetSdkVersion
+		INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\Projects\DeerHacks2026Project\rocky-watch\app\src\main\AndroidManifest.xml
+uses-library#com.google.android.wearable
+ADDED from [androidx.wear:wear:1.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\400513632ac75098c4ad60f6f16abc7a\workspace\transformed\wear-1.3.0\AndroidManifest.xml:23:9-25:40
+	android:required
+		ADDED from [androidx.wear:wear:1.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\400513632ac75098c4ad60f6f16abc7a\workspace\transformed\wear-1.3.0\AndroidManifest.xml:25:13-37
+	android:name
+		ADDED from [androidx.wear:wear:1.3.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\400513632ac75098c4ad60f6f16abc7a\workspace\transformed\wear-1.3.0\AndroidManifest.xml:24:13-55
+queries
+ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:19:5-21:15
+package#com.google.android.wearable.healthservices
+ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:20:9-78
+	android:name
+		ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:20:18-75
+service#androidx.health.services.client.VersionApiService
+ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:24:9-31:19
+	android:exported
+		ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:26:13-36
+	android:permission
+		ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:27:13-108
+	android:name
+		ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:25:13-77
+intent-filter#action:name:hs.versionclient.BIND
+ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:28:13-30:29
+action#hs.versionclient.BIND
+ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:29:17-64
+	android:name
+		ADDED from [androidx.health:health-services-client:1.0.0-rc02] C:\Users\taimo\.gradle\caches\9.1.0\transforms\c2d23eb82e25b75fa6f514b17b17f1b0\workspace\transformed\health-services-client-1.0.0-rc02\AndroidManifest.xml:29:25-61
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.5.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\927d180745d2ef407a6bbdbf4579894f\workspace\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:23:9-81
+permission#com.rockycompanion.watch.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:26:22-94
+uses-permission#com.rockycompanion.watch.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.17.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\569be0d1e6cd5705ebe9f4757a0c7d4e\workspace\transformed\core-1.17.0\AndroidManifest.xml:26:22-94
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5bc88eec19363b969722f6b4df4b3ba0\workspace\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5bc88eec19363b969722f6b4df4b3ba0\workspace\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\5bc88eec19363b969722f6b4df4b3ba0\workspace\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\fa5010538e5451a01a6b8b654d450566\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\taimo\.gradle\caches\9.1.0\transforms\fa5010538e5451a01a6b8b654d450566\workspace\transformed\startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:25:13-67
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\taimo\.gradle\caches\9.1.0\transforms\d2e980a39a48021003bdab92f8d96116\workspace\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92

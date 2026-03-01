@@ -1,0 +1,9 @@
+<!-- BPM display chip — elevated heart rate state (amber light, matches web "Fall Detection" pill) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/rocky_amber_light" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/rocky_amber" />
+    <corners android:radius="100dp" />
+</shape>
