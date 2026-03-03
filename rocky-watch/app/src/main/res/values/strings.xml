@@ -41,7 +41,11 @@
     <string name="demo_ready">Ready to send alerts</string>
     <string name="demo_hr_button">❤ Send heart rate alert</string>
     <string name="demo_fall_button">⚡ Send fall alert</string>
-    <string name="demo_audio_button"> Send audio alert</string>
-    <string name="demo_sending">Sending %s alert…</string>
-    <string name="demo_sent">%s alert sent ✓</string>
+    <string name="demo_audio_button">🔊 Send audio alert</string>
+    <string name="demo_sending_hr">Sending heart rate alert…</string>
+    <string name="demo_sent_hr">Heart rate alert sent ✓</string>
+    <string name="demo_sending_fall">Sending fall alert…</string>
+    <string name="demo_sent_fall">Fall alert sent ✓</string>
+    <string name="demo_sending_audio">Sending audio alert…</string>
+    <string name="demo_sent_audio">Audio alert sent ✓</string>
 </resources>

@@ -32,13 +32,16 @@ class DemoActivity : ComponentActivity() {
         binding.heartRateButton.setOnClickListener { triggerHeartRate() }
         binding.fallButton.setOnClickListener { triggerFall() }
         binding.audioButton.setOnClickListener { triggerAudio() }
+
+        // Set initial state
+        setStatus(getString(R.string.demo_ready), State.IDLE)
     }
 
     // ─── Triggers ────────────────────────────────────────────────────────────────
 
     private fun triggerHeartRate() {
         val api = requireApi() ?: return
-        setStatus(getString(R.string.demo_sending), State.LOADING)
+        setStatus(getString(R.string.demo_sending_hr), State.LOADING)
         lifecycleScope.launch {
             try {
                 val body = HeartRateBody(
@@ -48,7 +51,7 @@ class DemoActivity : ComponentActivity() {
                 )
                 val response = withContext(Dispatchers.IO) { api.reportHeartRate(body) }
                 if (response.isSuccessful) {
-                    setStatus(getString(R.string.demo_sent), State.SUCCESS)
+                    setStatus(getString(R.string.demo_sent_hr), State.SUCCESS)
                 } else {
                     setStatus("Error ${response.code()}", State.ERROR)
                 }
@@ -60,7 +63,7 @@ class DemoActivity : ComponentActivity() {
 
     private fun triggerFall() {
         val api = requireApi() ?: return
-        setStatus(getString(R.string.demo_sending), State.LOADING)
+        setStatus(getString(R.string.demo_sending_fall), State.LOADING)
         lifecycleScope.launch {
             try {
                 val sensorData = mapOf<String, Any>(
@@ -74,7 +77,7 @@ class DemoActivity : ComponentActivity() {
                 )
                 val response = withContext(Dispatchers.IO) { api.reportIncident(body) }
                 if (response.isSuccessful) {
-                    setStatus(getString(R.string.demo_sent), State.SUCCESS)
+                    setStatus(getString(R.string.demo_sent_fall), State.SUCCESS)
                 } else {
                     setStatus("Error ${response.code()}", State.ERROR)
                 }
@@ -86,7 +89,7 @@ class DemoActivity : ComponentActivity() {
 
     private fun triggerAudio() {
         val api = requireApi() ?: return
-        setStatus(getString(R.string.demo_sending), State.LOADING)
+        setStatus(getString(R.string.demo_sending_audio), State.LOADING)
         lifecycleScope.launch {
             try {
                 val body = AudioBody(
@@ -97,9 +100,9 @@ class DemoActivity : ComponentActivity() {
                 if (response.isSuccessful) {
                     val action = response.body()?.action
                     when (action) {
-                        "incident_created" -> setStatus(getString(R.string.demo_sent), State.SUCCESS)
+                        "incident_created" -> setStatus(getString(R.string.demo_sent_audio), State.SUCCESS)
                         "skip" -> setStatus("Audio benign — no incident", State.SUCCESS)
-                        else -> setStatus(getString(R.string.demo_sent), State.SUCCESS)
+                        else -> setStatus(getString(R.string.demo_sent_audio), State.SUCCESS)
                     }
                 } else {
                     setStatus("Error ${response.code()}", State.ERROR)
@@ -151,12 +154,21 @@ class DemoActivity : ComponentActivity() {
         if (it == null) setStatus(getString(R.string.demo_error_token), State.ERROR)
     }
 
-    private enum class State { LOADING, SUCCESS, ERROR }
+    private enum class State { IDLE, LOADING, SUCCESS, ERROR }
 
-    private fun setStatus(text: String, state: State = State.SUCCESS) {
+    private fun setStatus(text: String, state: State) {
         binding.statusText.text = text
+        binding.statusIcon.setImageResource(
+            when (state) {
+                State.IDLE -> R.drawable.ic_rocky_normal
+                State.SUCCESS -> R.drawable.ic_rocky_happy
+                State.ERROR -> R.drawable.ic_rocky_concerned
+                State.LOADING -> R.drawable.ic_rocky_concerned
+            }
+        )
         binding.statusText.setTextColor(
             when (state) {
+                State.IDLE -> getColor(R.color.rocky_slate_400)
                 State.SUCCESS -> getColor(R.color.rocky_emerald_dark)
                 State.ERROR   -> getColor(R.color.rocky_rose_dark)
                 State.LOADING -> getColor(R.color.rocky_slate_400)

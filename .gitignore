@@ -1,0 +1,29 @@
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Android/Gradle
+.gradle/
+build/
+app/build/
+local.properties
+captures/
+.externalNativeBuild
+.cxx
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+bin/
+gen/
+
+# Web/Node
+node_modules/
+dist/
+coverage/
+.next/
+.DS_Store

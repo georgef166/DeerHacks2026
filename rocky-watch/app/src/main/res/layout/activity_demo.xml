@@ -23,11 +23,11 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="8dp"
-            android:paddingBottom="16dp">
+            android:padding="16dp">
 
             <!-- Rocky mascot — concerned mood to set "simulation" context -->
             <ImageView
+                android:id="@+id/statusIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_rocky_concerned"

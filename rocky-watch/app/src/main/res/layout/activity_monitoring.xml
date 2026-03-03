@@ -30,10 +30,22 @@
             android:textColor="@color/rocky_slate_600"
             android:textSize="9sp" />
 
+        <TextView
+            android:id="@+id/heartRateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="— bpm"
+            android:textColor="@color/rocky_slate_400"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/heartRateButton"
-            android:layout_width="148dp"
-            android:layout_height="32dp"
+            android:layout_width="100dp"
+            android:layout_height="22dp"
             android:layout_marginTop="6dp"
             android:background="@drawable/bg_button_rose"
             android:stateListAnimator="@null"
@@ -45,8 +57,8 @@
 
         <Button
             android:id="@+id/fallButton"
-            android:layout_width="148dp"
-            android:layout_height="32dp"
+            android:layout_width="100dp"
+            android:layout_height="22dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/bg_button_amber_fill"
             android:stateListAnimator="@null"
@@ -58,8 +70,8 @@
 
         <Button
             android:id="@+id/stopButton"
-            android:layout_width="148dp"
-            android:layout_height="32dp"
+            android:layout_width="100dp"
+            android:layout_height="22dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/bg_button_secondary"
             android:stateListAnimator="@null"

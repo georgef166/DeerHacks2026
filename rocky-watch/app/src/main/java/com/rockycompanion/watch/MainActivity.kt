@@ -3,6 +3,7 @@ package com.rockycompanion.watch
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -28,9 +29,6 @@ class MainActivity : ComponentActivity() {
         setContentView(binding.root)
 
         binding.startButton.setOnClickListener { checkPermissionAndStart() }
-        binding.settingsButton.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
     }
 
     private fun checkPermissionAndStart() {
@@ -44,6 +42,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun launchMonitoring() {
+        val intent = Intent(this, MonitorService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
         startActivity(Intent(this, MonitoringActivity::class.java))
     }
 }

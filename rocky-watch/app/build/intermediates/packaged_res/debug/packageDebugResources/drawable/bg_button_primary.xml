@@ -1,6 +1,0 @@
-<!-- Mint-green pill button — matches web "Open Dashboard" / "Get Started" style -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/rocky_emerald_light" />
-    <corners android:radius="100dp" />
-</shape>

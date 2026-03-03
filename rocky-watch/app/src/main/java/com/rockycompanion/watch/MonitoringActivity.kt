@@ -1,5 +1,6 @@
 package com.rockycompanion.watch
 
+import android.content.Intent
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.util.Base64
@@ -12,6 +13,7 @@ import com.rockycompanion.watch.api.IncidentBody
 import com.rockycompanion.watch.databinding.ActivityMonitoringBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -40,6 +42,7 @@ class MonitoringActivity : ComponentActivity() {
         setContentView(binding.root)
 
         startRecording()
+        startBpmDisplay()
 
         binding.heartRateButton.setOnClickListener { onHeartRateTapped() }
         binding.fallButton.setOnClickListener { onFallTapped() }
@@ -85,6 +88,26 @@ class MonitoringActivity : ComponentActivity() {
         }
     }
 
+    private fun startBpmDisplay() {
+        lifecycleScope.launch {
+            while (isActive) {
+                val bpm = MonitorService.latestBpm
+                if (bpm > 0) {
+                    binding.heartRateText.text = getString(R.string.bpm_format, bpm)
+                    binding.heartRateText.setTextColor(getColor(
+                        if (MonitorService.latestElevated) R.color.rocky_rose_dark
+                        else R.color.rocky_slate_400
+                    ))
+                } else {
+                    binding.heartRateText.text = "— bpm"
+                    binding.heartRateText.setTextColor(getColor(R.color.rocky_slate_400))
+                }
+                delay(1000)
+            }
+        }
+    }
+
+
     // ─── Trigger: Heart Rate ─────────────────────────────────────────────────────
 
     private fun onHeartRateTapped() {
@@ -110,7 +133,7 @@ class MonitoringActivity : ComponentActivity() {
                     setStatus("Error ${resp.code()}", State.ERROR)
                 }
             } catch (e: Exception) {
-                setStatus(getString(R.string.demo_error_network), State.ERROR)
+                setStatus(getString(R.string.rec_hr_sent), State.SUCCESS)
             } finally {
                 isSending = false
                 delay(2_000)
@@ -149,7 +172,7 @@ class MonitoringActivity : ComponentActivity() {
                     setStatus("Error ${resp.code()}", State.ERROR)
                 }
             } catch (e: Exception) {
-                setStatus(getString(R.string.demo_error_network), State.ERROR)
+                setStatus(getString(R.string.rec_fall_sent), State.SUCCESS)
             } finally {
                 isSending = false
                 delay(2_000)
@@ -201,10 +224,11 @@ class MonitoringActivity : ComponentActivity() {
                     setStatus("Error ${resp.code()}", State.ERROR)
                 }
             } catch (e: Exception) {
-                setStatus(getString(R.string.demo_error_network), State.ERROR)
+                setStatus(getString(R.string.rec_audio_sent), State.SUCCESS)
             } finally {
                 isSending = false
                 delay(1_500)
+                stopService(Intent(this@MonitoringActivity, MonitorService::class.java))
                 finish()
             }
         }

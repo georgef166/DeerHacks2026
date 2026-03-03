@@ -1,9 +1,0 @@
-<!-- Purple pill — matches web "AI-Powered Insights" feature pill (#f3e8ff / #581c87) -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/rocky_purple_light" />
-    <stroke
-        android:width="2dp"
-        android:color="@color/rocky_purple_border" />
-    <corners android:radius="100dp" />
-</shape>
